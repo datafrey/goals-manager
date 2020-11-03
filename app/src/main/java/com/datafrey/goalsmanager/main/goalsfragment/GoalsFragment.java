@@ -1,5 +1,6 @@
 package com.datafrey.goalsmanager.main.goalsfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.datafrey.goalsmanager.R;
+import com.datafrey.goalsmanager.newgoal.NewGoalActivity;
 import com.google.android.material.tabs.TabLayout;
 
 public class GoalsFragment extends Fragment {
@@ -37,6 +39,8 @@ public class GoalsFragment extends Fragment {
         goalsDeadlineViewPager = view.findViewById(R.id.goalsDeadlineViewPager);
 
         setupViewPagerAndTabLayout();
+
+        view.findViewById(R.id.newGoalButton).setOnClickListener(v -> openNewGoalActivity());
 
         return view;
     }
@@ -74,5 +78,9 @@ public class GoalsFragment extends Fragment {
             public void onPageScrollStateChanged(int state) {
             }
         });
+    }
+
+    private void openNewGoalActivity() {
+        requireActivity().startActivity(new Intent(requireContext(), NewGoalActivity.class));
     }
 }

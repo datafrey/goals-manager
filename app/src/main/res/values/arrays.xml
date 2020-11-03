@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="goal_categories">
+        <item>None</item>
+        <item>Relationships</item>
+        <item>Fitness</item>
+        <item>Education</item>
+        <item>Business</item>
+    </string-array>
+</resources>
