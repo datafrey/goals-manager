@@ -30,12 +30,13 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/cancelButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="41dp"
                 android:layout_marginEnd="12dp"
                 android:text="Cancel"
-                android:textColor="@color/white"
+                android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,7 +71,7 @@
                     android:id="@+id/descriptionTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="300"
                     app:errorEnabled="true">
@@ -88,7 +89,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="Goal category:"
                     android:textSize="16sp"/>
 
@@ -101,14 +102,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Deadline date:"
+                    android:layout_marginTop="8dp"
+                    android:text="Deadline date (today by default):"
                     android:textSize="16sp"/>
 
                 <DatePicker
-                    android:id="@+id/datePicker"
+                    android:id="@+id/deadlineDatePicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20sp" />
 
             </LinearLayout>
@@ -121,8 +123,8 @@
         android:id="@+id/addGoalButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         android:text="Add goal"
         app:icon="@drawable/ic_new_goal_icon_24"
         app:layout_constraintBottom_toBottomOf="parent"
