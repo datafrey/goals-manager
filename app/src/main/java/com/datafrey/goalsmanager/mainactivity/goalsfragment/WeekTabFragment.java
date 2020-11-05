@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.main.archivefragment;
+package com.datafrey.goalsmanager.mainactivity.goalsfragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.datafrey.goalsmanager.R;
 
-public class ArchiveFragment extends Fragment {
+public class WeekTabFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_archive, container, false);
+        return inflater.inflate(R.layout.fragment_week_tab, container, false);
     }
 }

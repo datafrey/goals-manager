@@ -10,12 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GoalsManager">
         <activity
-            android:name=".newgoal.NewGoalActivity"
+            android:name=".newgoalactivity.NewGoalActivity"
             android:theme="@style/Theme.GoalsManager.LightStatusBar">
 
         </activity>
         <activity
-            android:name=".main.MainActivity"
+            android:name=".mainactivity.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

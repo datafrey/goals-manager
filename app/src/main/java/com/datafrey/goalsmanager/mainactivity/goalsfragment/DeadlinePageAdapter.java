@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.main.goalsfragment;
+package com.datafrey.goalsmanager.mainactivity.goalsfragment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

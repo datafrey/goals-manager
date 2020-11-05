@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.main.aboutfragment;
+package com.datafrey.goalsmanager.mainactivity.goalsfragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.datafrey.goalsmanager.R;
 
-public class AboutFragment extends Fragment {
+public class TodayTabFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_about, container, false);
+        return inflater.inflate(R.layout.fragment_today_tab, container, false);
     }
 }

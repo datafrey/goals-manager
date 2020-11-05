@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".newgoal.NewGoalActivity">
+    tools:context=".newgoalactivity.NewGoalActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -111,7 +111,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20sp" />
+                    android:layout_marginTop="20sp"
+                    android:headerBackground="?attr/colorPrimary" />
 
             </LinearLayout>
 

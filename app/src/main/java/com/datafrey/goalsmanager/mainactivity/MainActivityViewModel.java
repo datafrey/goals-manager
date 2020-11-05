@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.main;
+package com.datafrey.goalsmanager.mainactivity;
 
 import android.app.Application;
 

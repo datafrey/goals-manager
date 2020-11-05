@@ -1,8 +1,9 @@
-package com.datafrey.goalsmanager.newgoal;
+package com.datafrey.goalsmanager.newgoalactivity;
 
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,5 +28,10 @@ public class NewGoalActivity extends AppCompatActivity {
                 this, android.R.layout.simple_spinner_item, categories);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categoriesSpinner.setAdapter(spinnerAdapter);
+
+        ((DatePicker) findViewById(R.id.deadlineDatePicker))
+                .setMinDate(System.currentTimeMillis() - 1000);
+
+        findViewById(R.id.cancelButton).setOnClickListener(v -> finish());
     }
 }

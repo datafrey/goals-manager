@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.main;
+package com.datafrey.goalsmanager.mainactivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -13,9 +13,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.datafrey.goalsmanager.R;
-import com.datafrey.goalsmanager.main.aboutfragment.AboutFragment;
-import com.datafrey.goalsmanager.main.archivefragment.ArchiveFragment;
-import com.datafrey.goalsmanager.main.goalsfragment.GoalsFragment;
+import com.datafrey.goalsmanager.mainactivity.aboutfragment.AboutFragment;
+import com.datafrey.goalsmanager.mainactivity.archivefragment.ArchiveFragment;
+import com.datafrey.goalsmanager.mainactivity.goalsfragment.GoalsFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
