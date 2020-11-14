@@ -21,11 +21,11 @@ public class DeadlinePageAdapter extends FragmentPagerAdapter {
             case 0:
                 return new TodayTabFragment();
             case 1:
-                return new WeekTabFragment();
+                return new SevenDaysTabFragment();
             case 2:
-                return new MonthTabFragment();
+                return new ThirtyDaysTabFragment();
             case 3:
-                return new YearTabFragment();
+                return new ThreeHundredSixtyFiveDaysTabFragment();
             default:
                 return null;
         }

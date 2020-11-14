@@ -19,7 +19,6 @@ public class GoalsFragment extends Fragment {
 
     private TabLayout goalsDeadlineTabLayout;
     private ViewPager goalsDeadlineViewPager;
-    // private TabItem todayTab, weekTab, monthTab, yearTab;
 
     public DeadlinePageAdapter deadlinePageAdapter;
 
@@ -30,12 +29,6 @@ public class GoalsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_goals, container, false);
 
         goalsDeadlineTabLayout = view.findViewById(R.id.goalsDeadlineTabLayout);
-
-//        todayTab = view.findViewById(R.id.todayTab);
-//        weekTab = view.findViewById(R.id.weekTab);
-//        monthTab = view.findViewById(R.id.monthTab);
-//        yearTab = view.findViewById(R.id.yearTab);
-
         goalsDeadlineViewPager = view.findViewById(R.id.goalsDeadlineViewPager);
 
         setupViewPagerAndTabLayout();

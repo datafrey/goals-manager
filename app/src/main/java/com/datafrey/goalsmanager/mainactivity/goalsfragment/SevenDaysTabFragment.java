@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.datafrey.goalsmanager.R;
 
-public class YearTabFragment extends Fragment {
+public class SevenDaysTabFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_year_tab, container, false);
+        return inflater.inflate(R.layout.fragment_seven_days_tab, container, false);
     }
 }

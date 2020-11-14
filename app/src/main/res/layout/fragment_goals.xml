@@ -37,22 +37,22 @@
                 android:text="Today" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/weekTab"
+                android:id="@+id/sevenDaysTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Week" />
+                android:text="7 days" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/monthTab"
+                android:id="@+id/thirtyDaysTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Month" />
+                android:text="30 days" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/yearTab"
+                android:id="@+id/threeHundredSixtyFiveDaysTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Year" />
+                android:text="365 days" />
 
         </com.google.android.material.tabs.TabLayout>
 
