@@ -16,14 +16,24 @@ public class GoalsRepository {
 
     private final GoalsDao goalsDao;
 
-    private final LiveData<List<Goal>> todayGoals;
     public LiveData<List<Goal>> getTodayGoals() {
-        return todayGoals;
+        return goalsDao.getTodayGoals();
     }
 
-    private final LiveData<List<Goal>> allGoals;
+    public LiveData<List<Goal>> getWeekGoals() {
+        return goalsDao.getWeekGoals();
+    }
+
+    public LiveData<List<Goal>> getMonthGoals() {
+        return goalsDao.getMonthGoals();
+    }
+
+    public LiveData<List<Goal>> getYearGoals() {
+        return goalsDao.getYearGoals();
+    }
+
     public LiveData<List<Goal>> getAllGoals() {
-        return allGoals;
+        return goalsDao.getAllGoals();
     }
 
     // ...
@@ -33,8 +43,6 @@ public class GoalsRepository {
 
         GoalsDatabase database = GoalsDatabase.getInstance(application);
         goalsDao = database.goalsDao();
-        todayGoals = goalsDao.getTodayGoals();
-        allGoals = goalsDao.getAllGoals();
     }
 
     public void insertGoal(Goal goal) {

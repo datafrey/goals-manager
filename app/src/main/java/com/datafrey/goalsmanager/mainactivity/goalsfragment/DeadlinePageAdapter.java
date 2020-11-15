@@ -19,13 +19,13 @@ public class DeadlinePageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new TodayTabFragment();
+                return new GoalsListFragment(DeadlineType.TODAY);
             case 1:
-                return new SevenDaysTabFragment();
+                return new GoalsListFragment(DeadlineType.WEEK);
             case 2:
-                return new ThirtyDaysTabFragment();
+                return new GoalsListFragment(DeadlineType.MONTH);
             case 3:
-                return new ThreeHundredSixtyFiveDaysTabFragment();
+                return new GoalsListFragment(DeadlineType.YEAR);
             default:
                 return null;
         }
