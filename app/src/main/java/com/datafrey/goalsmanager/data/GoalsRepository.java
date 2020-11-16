@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.datafrey.goalsmanager.util.TaskRunner;
 
@@ -36,6 +37,15 @@ public class GoalsRepository {
         return goalsDao.getAllGoals();
     }
 
+    private final MutableLiveData<Boolean> goalInsertionSuccess = new MutableLiveData<>(null);
+    public LiveData<Boolean> getGoalInsertionSuccess() {
+        return goalInsertionSuccess;
+    }
+
+    public void setGoalInsertionSuccessValueToDefault() {
+        goalInsertionSuccess.postValue(null);
+    }
+
     // ...
 
     public GoalsRepository(Application application) {
@@ -46,13 +56,7 @@ public class GoalsRepository {
     }
 
     public void insertGoal(Goal goal) {
-        taskRunner.executeAsync(new InsertGoalTask(goalsDao, goal), success -> {
-            if (success) {
-                Log.i("DatabaseInsertionResult", "Insertion success");
-            } else {
-                Log.i("DatabaseInsertionResult", "Insertion failed");
-            }
-        });
+        taskRunner.executeAsync(new InsertGoalTask(goalsDao, goal), goalInsertionSuccess::postValue);
     }
 
     public static class InsertGoalTask implements Callable<Boolean> {

@@ -32,13 +32,13 @@ public interface GoalsDao {
     @Query("SELECT * FROM goals WHERE date(deadline_date) = date('now')")
     LiveData<List<Goal>> getTodayGoals();
 
-    @Query("SELECT * FROM goals WHERE date(deadline_date) BETWEEN date('now', '+1 day') AND date('now', '+7 days')")
+    @Query("SELECT * FROM goals WHERE date(deadline_date) BETWEEN date('now', '+1 day') AND date('now', '+6 days')")
     LiveData<List<Goal>> getWeekGoals();
 
     @Query("SELECT * FROM goals WHERE date(deadline_date) BETWEEN date('now', '+7 days') AND date('now', '+1 month')")
     LiveData<List<Goal>> getMonthGoals();
 
-    @Query("SELECT * FROM goals WHERE date(deadline_date) BETWEEN date('now', '+1 month') AND date('now', '+1 year')")
+    @Query("SELECT * FROM goals WHERE date(deadline_date) BETWEEN date('now', '+1 month', '+1 day') AND date('now', '+1 year')")
     LiveData<List<Goal>> getYearGoals();
 
     @Query("SELECT * FROM goals WHERE date(deadline_date) < date('now')")

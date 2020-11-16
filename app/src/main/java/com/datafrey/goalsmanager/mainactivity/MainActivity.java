@@ -34,9 +34,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        viewModel = new ViewModelProvider(
+                this,
+                new MainActivityViewModelFactory(getApplication())
+        ).get(MainActivityViewModel.class);
 
         setupActionBar();
         setupDrawer();

@@ -38,8 +38,7 @@ public class GoalsListFragment extends Fragment {
         GoalsListFragmentViewModel viewModel = new ViewModelProvider(
                 this,
                 new GoalsListFragmentViewModelFactory(getActivity().getApplication(), deadlineType)
-        )
-                .get(GoalsListFragmentViewModel.class);
+        ).get(GoalsListFragmentViewModel.class);
 
         viewModel.getGoalsToDisplay().observe(getViewLifecycleOwner(), goalsList -> {
             if (viewModel.getGoalsListRecyclerViewAdapter() == null) {
