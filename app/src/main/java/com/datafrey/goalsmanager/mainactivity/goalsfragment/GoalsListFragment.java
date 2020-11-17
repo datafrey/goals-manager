@@ -13,11 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.datafrey.goalsmanager.R;
+import com.datafrey.goalsmanager.data.Goal;
 import com.datafrey.goalsmanager.util.RecyclerViewBottomOffsetDecoration;
+
+import java.util.List;
 
 public class GoalsListFragment extends Fragment {
 
     private DeadlineType deadlineType;
+
+    private RecyclerView goalsListRecyclerView;
+
+    private GoalsListFragmentViewModel viewModel;
 
     public GoalsListFragment() {
         this.deadlineType = DeadlineType.TODAY;
@@ -33,27 +40,14 @@ public class GoalsListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goals_list_tab, container, false);
 
-        RecyclerView goalsListRecyclerView = view.findViewById(R.id.goalsListRecyclerView);
+        goalsListRecyclerView = view.findViewById(R.id.goalsListRecyclerView);
 
-        GoalsListFragmentViewModel viewModel = new ViewModelProvider(
+        viewModel = new ViewModelProvider(
                 this,
                 new GoalsListFragmentViewModelFactory(getActivity().getApplication(), deadlineType)
         ).get(GoalsListFragmentViewModel.class);
 
-        viewModel.getGoalsToDisplay().observe(getViewLifecycleOwner(), goalsList -> {
-            if (viewModel.getGoalsListRecyclerViewAdapter() == null) {
-                viewModel.setGoalsListRecyclerViewAdapter(
-                        new GoalsListRecyclerViewAdapter(goalsList));
-            } else {
-                viewModel.getGoalsListRecyclerViewAdapter().setGoalsList(goalsList);
-            }
-
-            if (goalsListRecyclerView.getAdapter() == null) {
-                goalsListRecyclerView.setAdapter(viewModel.getGoalsListRecyclerViewAdapter());
-            }
-
-            viewModel.getGoalsListRecyclerViewAdapter().notifyDataSetChanged();
-        });
+        viewModel.getGoalsToDisplay().observe(getViewLifecycleOwner(), this::updateRecyclerView);
 
         goalsListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -62,5 +56,20 @@ public class GoalsListFragment extends Fragment {
         goalsListRecyclerView.addItemDecoration(bottomOffsetDecoration);
 
         return view;
+    }
+
+    private void updateRecyclerView(List<Goal> goalsList) {
+        if (viewModel.getGoalsListRecyclerViewAdapter() == null) {
+            viewModel.setGoalsListRecyclerViewAdapter(
+                    new GoalsListRecyclerViewAdapter(goalsList));
+        } else {
+            viewModel.getGoalsListRecyclerViewAdapter().setGoalsList(goalsList);
+        }
+
+        if (goalsListRecyclerView.getAdapter() == null) {
+            goalsListRecyclerView.setAdapter(viewModel.getGoalsListRecyclerViewAdapter());
+        }
+
+        viewModel.getGoalsListRecyclerViewAdapter().notifyDataSetChanged();
     }
 }

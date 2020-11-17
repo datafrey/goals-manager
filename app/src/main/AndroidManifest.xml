@@ -11,9 +11,7 @@
         android:theme="@style/Theme.GoalsManager">
         <activity
             android:name=".newgoalactivity.NewGoalActivity"
-            android:theme="@style/Theme.GoalsManager.LightStatusBar">
-
-        </activity>
+            android:theme="@style/Theme.GoalsManager.LightStatusBar"></activity>
         <activity
             android:name=".mainactivity.MainActivity"
             android:launchMode="singleTop">

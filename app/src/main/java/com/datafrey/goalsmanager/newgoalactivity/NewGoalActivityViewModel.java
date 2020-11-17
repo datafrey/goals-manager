@@ -46,6 +46,15 @@ public class NewGoalActivityViewModel extends AndroidViewModel {
         descriptionInputErrorMessage.setValue("");
     }
 
+    private final MutableLiveData<Boolean> addGoalButtonEnabled = new MutableLiveData<>(true);
+    public LiveData<Boolean> getAddGoalButtonEnabled() {
+        return addGoalButtonEnabled;
+    }
+
+    public void setAddGoalButtonEnabled(boolean enabled) {
+        addGoalButtonEnabled.postValue(enabled);
+    }
+
     public NewGoalActivityViewModel(@NonNull Application application) {
         super(application);
         goalsRepository = new GoalsRepository(getApplication());
@@ -62,6 +71,8 @@ public class NewGoalActivityViewModel extends AndroidViewModel {
 
             goalsRepository.insertGoal(newGoal);
         }
+
+        addGoalButtonEnabled.postValue(true);
     }
 
     private boolean inputIsValid(String title, String description) {

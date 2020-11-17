@@ -51,6 +51,9 @@ public class NewGoalActivity extends AppCompatActivity {
         findViewById(R.id.cancelButton).setOnClickListener(v -> finish());
         addGoalButton.setOnClickListener(v -> onAddGoalButtonClick());
 
+        viewModel.getAddGoalButtonEnabled().observe(this,
+                enabled -> addGoalButton.setEnabled(enabled));
+
         viewModel.getNewGoalAdditionResult().observe(this, success -> {
             if (success != null) {
                 Toast.makeText(
@@ -60,7 +63,6 @@ public class NewGoalActivity extends AppCompatActivity {
                 ).show();
 
                 viewModel.uiReactedToNewGoalAdditionResult();
-                addGoalButton.setEnabled(true);
                 finish();
             }
         });
@@ -122,7 +124,7 @@ public class NewGoalActivity extends AppCompatActivity {
     }
 
     private void onAddGoalButtonClick() {
-        addGoalButton.setEnabled(false);
+        viewModel.setAddGoalButtonEnabled(false);
 
         String goalTitle = titleTextInput.getEditText().getText().toString().trim();
         String goalDescription = descriptionTextInput.getEditText().getText().toString().trim();
