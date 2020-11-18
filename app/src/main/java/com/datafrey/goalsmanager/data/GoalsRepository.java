@@ -17,7 +17,6 @@ public class GoalsRepository {
 
     private final GoalsDao goalsDao;
 
-    // Попробовать добавить отдельные переменные для списков целей
     public LiveData<List<Goal>> getTodayGoals() {
         return goalsDao.getTodayGoals();
     }

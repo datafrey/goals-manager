@@ -5,8 +5,6 @@
         <variable
             name="goal"
             type="com.datafrey.goalsmanager.data.Goal" />
-
-        <import type="com.datafrey.goalsmanager.data.DateConverter" />
     </data>
 
     <LinearLayout
@@ -39,7 +37,7 @@
                 android:id="@+id/deadlineDateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{DateConverter.fromDate(goal.deadlineDate)}"
+                android:text="@{goal.deadlineDate}"
                 android:textSize="12sp"/>
 
             <TextView

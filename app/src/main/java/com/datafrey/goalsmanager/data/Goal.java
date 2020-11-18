@@ -3,10 +3,6 @@ package com.datafrey.goalsmanager.data;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
-
-import java.util.Calendar;
-import java.util.Date;
 
 @Entity(tableName = "goals")
 public class Goal {
@@ -25,8 +21,9 @@ public class Goal {
     private String category = "None";
 
     @ColumnInfo(name = "deadline_date")
-    @TypeConverters({DateConverter.class})
-    private Date deadlineDate = Calendar.getInstance().getTime();
+    // @TypeConverters({DateConverter.class})
+    // private Date deadlineDate = Calendar.getInstance().getTime();
+    private String deadlineDate = "";
 
     public long getId() {
         return id;
@@ -60,11 +57,11 @@ public class Goal {
         this.category = category;
     }
 
-    public Date getDeadlineDate() {
+    public String getDeadlineDate() {
         return deadlineDate;
     }
 
-    public void setDeadlineDate(Date deadlineDate) {
+    public void setDeadlineDate(String deadlineDate) {
         this.deadlineDate = deadlineDate;
     }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.datafrey.goalsmanager.data.DateConverter;
 import com.datafrey.goalsmanager.data.Goal;
 import com.datafrey.goalsmanager.data.GoalsRepository;
 import com.datafrey.goalsmanager.util.userinputvalidation.InputIsEmptyMiddleware;
@@ -67,7 +68,7 @@ public class NewGoalActivityViewModel extends AndroidViewModel {
             newGoal.setTitle(title);
             newGoal.setDescription(description);
             newGoal.setCategory(category);
-            newGoal.setDeadlineDate(deadlineDate);
+            newGoal.setDeadlineDate(DateConverter.fromDateToDatabaseString(deadlineDate));
 
             goalsRepository.insertGoal(newGoal);
         }
