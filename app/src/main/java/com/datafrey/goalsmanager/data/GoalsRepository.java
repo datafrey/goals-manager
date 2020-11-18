@@ -25,16 +25,32 @@ public class GoalsRepository {
         return goalsDao.getWeekGoals();
     }
 
+    public LiveData<List<Goal>> getNextWeekGoals() {
+        return goalsDao.getNextWeekGoals();
+    }
+
     public LiveData<List<Goal>> getMonthGoals() {
         return goalsDao.getMonthGoals();
+    }
+
+    public LiveData<List<Goal>> getNextMonthGoals() {
+        return goalsDao.getNextMonthGoals();
     }
 
     public LiveData<List<Goal>> getYearGoals() {
         return goalsDao.getYearGoals();
     }
 
-    public LiveData<List<Goal>> getAllGoals() {
-        return goalsDao.getAllGoals();
+    public LiveData<List<Goal>> getNextYearGoals() {
+        return goalsDao.getNextYearGoals();
+    }
+
+    public LiveData<List<Goal>> getLongTermGoals() {
+        return goalsDao.getLongTermGoals();
+    }
+
+    public LiveData<List<Goal>> getArchiveGoals() {
+        return goalsDao.getArchiveGoals();
     }
 
     private final MutableLiveData<Boolean> goalInsertionSuccess = new MutableLiveData<>(null);
@@ -46,7 +62,32 @@ public class GoalsRepository {
         goalInsertionSuccess.postValue(null);
     }
 
-    // ...
+    private final MutableLiveData<Boolean> goalUpdateSuccess = new MutableLiveData<>(null);
+    public LiveData<Boolean> getGoalUpdateSuccess() {
+        return goalUpdateSuccess;
+    }
+
+    public void setGoalUpdateSuccessValueToDefault() {
+        goalUpdateSuccess.postValue(null);
+    }
+
+    private final MutableLiveData<Goal> obtainedGoal = new MutableLiveData<>(null);
+    public LiveData<Goal> getObtainedGoal() {
+        return obtainedGoal;
+    }
+
+    public void setObtainedGoalValueToDefault() {
+        obtainedGoal.postValue(null);
+    }
+
+    private final MutableLiveData<Boolean> goalDeleteSuccess = new MutableLiveData<>(null);
+    public LiveData<Boolean> getGoalDeleteSuccess() {
+        return goalDeleteSuccess;
+    }
+
+    public void setGoalDeleteSuccessValueToDefault() {
+        goalDeleteSuccess.postValue(null);
+    }
 
     public GoalsRepository(Application application) {
         taskRunner = new TaskRunner();
@@ -56,16 +97,26 @@ public class GoalsRepository {
     }
 
     public void insertGoal(Goal goal) {
-        taskRunner.executeAsync(new InsertGoalTask(goalsDao, goal), goalInsertionSuccess::postValue);
+        taskRunner.executeAsync(new InsertGoalTask(goal), goalInsertionSuccess::postValue);
     }
 
-    public static class InsertGoalTask implements Callable<Boolean> {
+    public void updateGoal(Goal goal) {
+        taskRunner.executeAsync(new UpdateGoalTask(goal), goalUpdateSuccess::postValue);
+    }
 
-        private final GoalsDao goalsDao;
+    public void getGoal(long id) {
+        taskRunner.executeAsync(new GetGoalTask(id), obtainedGoal::postValue);
+    }
+
+    public void deleteGoal(long id) {
+        taskRunner.executeAsync(new DeleteGoalTask(id), goalDeleteSuccess::postValue);
+    }
+
+    private class InsertGoalTask implements Callable<Boolean> {
+
         private final Goal goal;
 
-        public InsertGoalTask(GoalsDao goalsDao, Goal goal) {
-            this.goalsDao = goalsDao;
+        public InsertGoalTask(Goal goal) {
             this.goal = goal;
         }
 
@@ -81,5 +132,62 @@ public class GoalsRepository {
         }
     }
 
-    // ...
+    private class UpdateGoalTask implements Callable<Boolean> {
+
+        private final Goal goal;
+
+        public UpdateGoalTask(Goal goal) {
+            this.goal = goal;
+        }
+
+        @Override
+        public Boolean call() {
+            try {
+                goalsDao.update(goal);
+                return true;
+            } catch (Exception exception) {
+                Log.e("UpdatingError", exception.getMessage());
+                return false;
+            }
+        }
+    }
+
+    private class GetGoalTask implements Callable<Goal> {
+
+        private final long id;
+
+        public GetGoalTask(long id) {
+            this.id = id;
+        }
+
+        @Override
+        public Goal call() {
+            try {
+                return goalsDao.get(id);
+            } catch (Exception exception) {
+                Log.e("ObtainingError", exception.getMessage());
+                return null;
+            }
+        }
+    }
+
+    private class DeleteGoalTask implements Callable<Boolean> {
+
+        private final long id;
+
+        public DeleteGoalTask(long id) {
+            this.id = id;
+        }
+
+        @Override
+        public Boolean call() {
+            try {
+                goalsDao.delete(id);
+                return true;
+            } catch (Exception exception) {
+                Log.e("DeletingError", exception.getMessage());
+                return false;
+            }
+        }
+    }
 }

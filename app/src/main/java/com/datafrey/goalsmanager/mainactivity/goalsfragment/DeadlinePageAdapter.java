@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.datafrey.goalsmanager.mainactivity.goalslistfragment.DeadlineType;
+import com.datafrey.goalsmanager.mainactivity.goalslistfragment.GoalsListFragment;
+
 public class DeadlinePageAdapter extends FragmentPagerAdapter {
 
     private final int numberOfTabs;
@@ -23,9 +26,15 @@ public class DeadlinePageAdapter extends FragmentPagerAdapter {
             case 1:
                 return new GoalsListFragment(DeadlineType.WEEK);
             case 2:
-                return new GoalsListFragment(DeadlineType.MONTH);
+                return new GoalsListFragment(DeadlineType.NEXT_WEEK);
             case 3:
+                return new GoalsListFragment(DeadlineType.MONTH);
+            case 4:
+                return new GoalsListFragment(DeadlineType.NEXT_MONTH);
+            case 5:
                 return new GoalsListFragment(DeadlineType.YEAR);
+            case 6:
+                return new GoalsListFragment(DeadlineType.NEXT_YEAR);
             default:
                 return null;
         }

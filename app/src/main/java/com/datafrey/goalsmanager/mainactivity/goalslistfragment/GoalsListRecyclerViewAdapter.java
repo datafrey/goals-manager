@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.mainactivity.goalsfragment;
+package com.datafrey.goalsmanager.mainactivity.goalslistfragment;
 
 import android.view.LayoutInflater;
 import android.view.View;

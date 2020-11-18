@@ -29,18 +29,56 @@ public interface GoalsDao {
     @Query("DELETE FROM goals")
     void clear();
 
-    @Query("SELECT * FROM goals WHERE date(deadline_date) = date('now')")
+    @Query("SELECT * FROM goals WHERE date(deadline_date) = date('now')" +
+            " ORDER BY date(deadline_date)")
     LiveData<List<Goal>> getTodayGoals();
 
-    @Query("SELECT * FROM goals WHERE date(deadline_date) BETWEEN date('now', '+1 day') AND date('now', '+6 days')")
+    @Query("SELECT * FROM goals WHERE " +
+            "(date(deadline_date) BETWEEN date('now', '+1 day') AND date('now', 'weekday 6', '+1 days'))" +
+            " AND " +
+            "NOT ((date(deadline_date) = date('now')) AND (date(deadline_date) = date('now', 'weekday 6', '+1 days')))" +
+            " ORDER BY date(deadline_date)")
     LiveData<List<Goal>> getWeekGoals();
 
-    @Query("SELECT * FROM goals WHERE date(deadline_date) BETWEEN date('now', '+7 days') AND date('now', '+1 month')")
+    @Query("SELECT * FROM goals WHERE " +
+            "date(deadline_date) BETWEEN date('now', 'weekday 6', '+2 days') AND date('now', 'weekday 6', '+8 days')" +
+            " ORDER BY date(deadline_date)")
+    LiveData<List<Goal>> getNextWeekGoals();
+
+    @Query("SELECT * FROM goals WHERE " +
+            "(date(deadline_date) BETWEEN date('now', '+1 day') AND date('now', 'start of month', '+1 month', '-1 day'))" +
+            " AND " +
+            "NOT ((date(deadline_date) = date('now')) AND (date(deadline_date) = date('now', 'start of month', '+1 month', '-1 day')))" +
+            " AND " +
+            "NOT (date(deadline_date) BETWEEN date('now', '+1 day') AND date('now', 'weekday 6', '+8 days'))" +
+            " ORDER BY date(deadline_date)")
     LiveData<List<Goal>> getMonthGoals();
 
-    @Query("SELECT * FROM goals WHERE date(deadline_date) BETWEEN date('now', '+1 month', '+1 day') AND date('now', '+1 year')")
+    @Query("SELECT * FROM goals WHERE " +
+            "date(deadline_date) BETWEEN date('now', 'start of month', '+1 month') AND date('now', 'start of month', '+2 month', '-1 day')" +
+            " ORDER BY date(deadline_date)")
+    LiveData<List<Goal>> getNextMonthGoals();
+
+    @Query("SELECT * FROM goals WHERE " +
+            "(date(deadline_date) BETWEEN date('now', '+1 day') AND date('now', 'start of year', '+1 year', '-1 day'))" +
+            " AND " +
+            "NOT ((date(deadline_date) = date('now')) AND (date(deadline_date) = date('now', 'start of year', '+1 year', '-1 day')))" +
+            " AND " +
+            "NOT (date(deadline_date) BETWEEN date('now', '+1 day') AND date('now', 'start of month', '+2 month', '-1 day'))" +
+            " ORDER BY date(deadline_date)")
     LiveData<List<Goal>> getYearGoals();
 
-    @Query("SELECT * FROM goals WHERE date(deadline_date) < date('now')")
+    @Query("SELECT * FROM goals WHERE " +
+            "date(deadline_date) BETWEEN date('now', 'start of year', '+1 year') AND date('now', 'start of year', '+2 year', '-1 day')" +
+            " ORDER BY date(deadline_date)")
+    LiveData<List<Goal>> getNextYearGoals();
+
+    @Query("SELECT * FROM goals WHERE " +
+            "date(deadline_date) >= date('now', 'start of year', '+2 year')" +
+            " ORDER BY date(deadline_date)")
+    LiveData<List<Goal>> getLongTermGoals();
+
+    @Query("SELECT * FROM goals WHERE date(deadline_date) < date('now')" +
+            " ORDER BY date(deadline_date)")
     LiveData<List<Goal>> getArchiveGoals();
 }

@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.mainactivity.goalsfragment;
+package com.datafrey.goalsmanager.mainactivity.goalslistfragment;
 
 import android.app.Application;
 
@@ -42,11 +42,20 @@ public class GoalsListFragmentViewModel extends AndroidViewModel {
             case WEEK:
                 goalsToDisplay = goalsRepository.getWeekGoals();
                 break;
+            case NEXT_WEEK:
+                goalsToDisplay = goalsRepository.getNextWeekGoals();
+                break;
             case MONTH:
                 goalsToDisplay = goalsRepository.getMonthGoals();
                 break;
+            case NEXT_MONTH:
+                goalsToDisplay = goalsRepository.getNextMonthGoals();
+                break;
             case YEAR:
                 goalsToDisplay = goalsRepository.getYearGoals();
+                break;
+            case NEXT_YEAR:
+                goalsToDisplay = goalsRepository.getNextYearGoals();
                 break;
         }
     }

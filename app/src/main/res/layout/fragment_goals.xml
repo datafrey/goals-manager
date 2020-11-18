@@ -28,7 +28,8 @@
             android:elevation="4dp"
             app:tabIndicatorColor="@color/white"
             app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@android:color/darker_gray">
+            app:tabTextColor="@android:color/darker_gray"
+            app:tabMode="scrollable">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/todayTab"
@@ -37,22 +38,40 @@
                 android:text="Today" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/sevenDaysTab"
+                android:id="@+id/weekTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="7 days" />
+                android:text="Week" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/thirtyDaysTab"
+                android:id="@+id/nextWeekTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="30 days" />
+                android:text="Next week" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/threeHundredSixtyFiveDaysTab"
+                android:id="@+id/monthTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="365 days" />
+                android:text="Month" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/nextMonthTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next month" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/yearTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Year" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/nextYearTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next year" />
 
         </com.google.android.material.tabs.TabLayout>
 
