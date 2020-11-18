@@ -57,6 +57,9 @@ public class GoalsListFragmentViewModel extends AndroidViewModel {
             case NEXT_YEAR:
                 goalsToDisplay = goalsRepository.getNextYearGoals();
                 break;
+            case LONG_TERM:
+                goalsToDisplay = goalsRepository.getLongTermGoals();
+                break;
         }
     }
 }

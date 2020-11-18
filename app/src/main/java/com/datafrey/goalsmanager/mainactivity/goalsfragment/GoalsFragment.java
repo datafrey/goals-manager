@@ -20,7 +20,7 @@ public class GoalsFragment extends Fragment {
     private TabLayout goalsDeadlineTabLayout;
     private ViewPager goalsDeadlineViewPager;
 
-    public DeadlinePageAdapter deadlinePageAdapter;
+    private DeadlinePageAdapter deadlinePageAdapter;
 
     @Nullable
     @Override

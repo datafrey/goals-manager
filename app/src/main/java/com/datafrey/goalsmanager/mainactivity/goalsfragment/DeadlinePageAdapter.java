@@ -35,6 +35,8 @@ public class DeadlinePageAdapter extends FragmentPagerAdapter {
                 return new GoalsListFragment(DeadlineType.YEAR);
             case 6:
                 return new GoalsListFragment(DeadlineType.NEXT_YEAR);
+            case 7:
+                return new GoalsListFragment(DeadlineType.LONG_TERM);
             default:
                 return null;
         }
