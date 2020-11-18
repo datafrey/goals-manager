@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.mainactivity.goalslistfragment;
+package com.datafrey.goalsmanager.data;
 
 public enum DeadlineType {
     TODAY,

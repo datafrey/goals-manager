@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.datafrey.goalsmanager.R;
+import com.datafrey.goalsmanager.data.DeadlineType;
 import com.datafrey.goalsmanager.data.Goal;
 import com.datafrey.goalsmanager.util.RecyclerViewBottomOffsetDecoration;
 

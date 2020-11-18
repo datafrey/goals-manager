@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.datafrey.goalsmanager.data.DeadlineType;
+
 public class GoalsListFragmentViewModelFactory implements ViewModelProvider.Factory {
 
     private Application application;

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.datafrey.goalsmanager.data.DeadlineType;
 import com.datafrey.goalsmanager.data.Goal;
 import com.datafrey.goalsmanager.data.GoalsRepository;
 
