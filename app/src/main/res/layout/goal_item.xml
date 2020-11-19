@@ -5,13 +5,18 @@
         <variable
             name="goal"
             type="com.datafrey.goalsmanager.data.Goal" />
+
+        <variable
+            name="eventListener"
+            type="com.datafrey.goalsmanager.mainactivity.goalslistfragment.GoalItemViewEventListener" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:onClick="@{(view) -> eventListener.onItemViewClick(view)}">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -50,14 +55,18 @@
         </LinearLayout>
 
         <ImageButton
+            android:id="@+id/editGoalButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_edit_button_icon_24" />
+            android:src="@drawable/ic_edit_button_icon_24"
+            android:onClick="@{(view) -> eventListener.onEditButtonClick(view, goal)}"/>
 
         <ImageButton
+            android:id="@+id/deleteGoalButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_delete_button_icon_24" />
+            android:src="@drawable/ic_delete_button_icon_24"
+            android:onClick="@{(view) -> eventListener.onDeleteButtonClick(view, goal)}"/>
 
     </LinearLayout>
 </layout>

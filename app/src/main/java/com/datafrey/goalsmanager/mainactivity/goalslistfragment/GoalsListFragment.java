@@ -1,9 +1,12 @@
 package com.datafrey.goalsmanager.mainactivity.goalslistfragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,11 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.datafrey.goalsmanager.R;
 import com.datafrey.goalsmanager.data.DeadlineType;
 import com.datafrey.goalsmanager.data.Goal;
+import com.datafrey.goalsmanager.editgoalactivity.EditGoalActivity;
+import com.datafrey.goalsmanager.mainactivity.MainActivity;
 import com.datafrey.goalsmanager.util.RecyclerViewBottomOffsetDecoration;
 
 import java.util.List;
 
 public class GoalsListFragment extends Fragment {
+
+    private MainActivity activity;
 
     private DeadlineType deadlineType;
     private boolean addBottomOffsetDecoration;
@@ -71,8 +78,9 @@ public class GoalsListFragment extends Fragment {
 
     private void updateRecyclerView(List<Goal> goalsList) {
         if (viewModel.getGoalsListRecyclerViewAdapter() == null) {
-            viewModel.setGoalsListRecyclerViewAdapter(
-                    new GoalsListRecyclerViewAdapter(goalsList));
+            GoalsListRecyclerViewAdapter recyclerViewAdapter = new GoalsListRecyclerViewAdapter(goalsList);
+            recyclerViewAdapter.setItemViewEventListener(buildGoalItemViewEventListener());
+            viewModel.setGoalsListRecyclerViewAdapter(recyclerViewAdapter);
         } else {
             viewModel.getGoalsListRecyclerViewAdapter().setGoalsList(goalsList);
         }
@@ -82,5 +90,40 @@ public class GoalsListFragment extends Fragment {
         }
 
         viewModel.getGoalsListRecyclerViewAdapter().notifyDataSetChanged();
+    }
+
+    private GoalItemViewEventListener buildGoalItemViewEventListener() {
+        return new GoalItemViewEventListener() {
+            @Override
+            public void onItemViewClick(View view) {
+            }
+
+            @Override
+            public void onEditButtonClick(View view, Goal goal) {
+                ImageButton editGoalButton = (ImageButton) view;
+                ImageButton deleteGoalButton = view.getRootView().findViewById(R.id.deleteGoalButton);
+
+                editGoalButton.setEnabled(false);
+                deleteGoalButton.setEnabled(false);
+
+                Intent editIntent = new Intent(activity, EditGoalActivity.class);
+                editIntent.putExtra("goalId", goal.getId());
+                activity.startActivity(editIntent);
+
+                editGoalButton.setEnabled(true);
+                deleteGoalButton.setEnabled(true);
+            }
+
+            @Override
+            public void onDeleteButtonClick(View view, Goal goal) {
+            }
+        };
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = (MainActivity) activity;
     }
 }

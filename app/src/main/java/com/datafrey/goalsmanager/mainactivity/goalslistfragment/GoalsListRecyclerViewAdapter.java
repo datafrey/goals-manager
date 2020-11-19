@@ -17,9 +17,14 @@ public class GoalsListRecyclerViewAdapter
         extends RecyclerView.Adapter<GoalsListRecyclerViewAdapter.GoalViewHolder> {
 
     private List<Goal> goalsList;
+    private GoalItemViewEventListener itemViewEventListener;
 
     public void setGoalsList(List<Goal> goalsList) {
         this.goalsList = goalsList;
+    }
+
+    public void setItemViewEventListener(GoalItemViewEventListener itemViewEventListener) {
+        this.itemViewEventListener = itemViewEventListener;
     }
 
     public GoalsListRecyclerViewAdapter(List<Goal> goalsList) {
@@ -37,6 +42,7 @@ public class GoalsListRecyclerViewAdapter
     public void onBindViewHolder(@NonNull GoalViewHolder holder, int position) {
         Goal currentGoal = goalsList.get(position);
         holder.getBinding().setGoal(currentGoal);
+        holder.getBinding().setEventListener(itemViewEventListener);
     }
 
     @Override

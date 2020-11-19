@@ -13,6 +13,9 @@
             android:name=".newgoalactivity.NewGoalActivity"
             android:theme="@style/Theme.GoalsManager.LightStatusBar"></activity>
         <activity
+            android:name=".editgoalactivity.EditGoalActivity"
+            android:theme="@style/Theme.GoalsManager.LightStatusBar"></activity>
+        <activity
             android:name=".mainactivity.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
