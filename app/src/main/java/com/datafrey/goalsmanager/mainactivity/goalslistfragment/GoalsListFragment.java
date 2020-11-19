@@ -22,6 +22,7 @@ import java.util.List;
 public class GoalsListFragment extends Fragment {
 
     private DeadlineType deadlineType;
+    private boolean addBottomOffsetDecoration;
 
     private RecyclerView goalsListRecyclerView;
 
@@ -29,10 +30,17 @@ public class GoalsListFragment extends Fragment {
 
     public GoalsListFragment() {
         this.deadlineType = DeadlineType.TODAY;
+        addBottomOffsetDecoration = true;
     }
 
     public GoalsListFragment(DeadlineType deadlineType) {
         this.deadlineType = deadlineType;
+        addBottomOffsetDecoration = true;
+    }
+
+    public GoalsListFragment(DeadlineType deadlineType, boolean addBottomOffsetDecoration) {
+        this.deadlineType = deadlineType;
+        this.addBottomOffsetDecoration = addBottomOffsetDecoration;
     }
 
     @Nullable
@@ -52,9 +60,11 @@ public class GoalsListFragment extends Fragment {
 
         goalsListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        RecyclerViewBottomOffsetDecoration bottomOffsetDecoration =
-                new RecyclerViewBottomOffsetDecoration(200);
-        goalsListRecyclerView.addItemDecoration(bottomOffsetDecoration);
+        if (addBottomOffsetDecoration) {
+            RecyclerViewBottomOffsetDecoration bottomOffsetDecoration =
+                    new RecyclerViewBottomOffsetDecoration(200);
+            goalsListRecyclerView.addItemDecoration(bottomOffsetDecoration);
+        }
 
         return view;
     }

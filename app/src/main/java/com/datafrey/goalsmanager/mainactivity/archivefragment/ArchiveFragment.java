@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.datafrey.goalsmanager.R;
+import com.datafrey.goalsmanager.data.DeadlineType;
+import com.datafrey.goalsmanager.mainactivity.goalslistfragment.GoalsListFragment;
 
 public class ArchiveFragment extends Fragment {
 
@@ -17,6 +19,13 @@ public class ArchiveFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_archive, container, false);
+        View view = inflater.inflate(R.layout.fragment_archive, container, false);
+
+        getActivity().getSupportFragmentManager().beginTransaction().add(
+                R.id.fragmentContainerForArchiveGoalsList,
+                new GoalsListFragment(DeadlineType.ARCHIVE, false)
+        ).commit();
+
+        return view;
     }
 }

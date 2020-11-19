@@ -61,6 +61,9 @@ public class GoalsListFragmentViewModel extends AndroidViewModel {
             case LONG_TERM:
                 goalsToDisplay = goalsRepository.getLongTermGoals();
                 break;
+            case ARCHIVE:
+                goalsToDisplay = goalsRepository.getArchiveGoals();
+                break;
         }
     }
 }
