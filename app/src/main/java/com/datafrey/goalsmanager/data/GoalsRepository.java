@@ -89,6 +89,15 @@ public class GoalsRepository {
         goalDeleteSuccess.postValue(null);
     }
 
+    private final MutableLiveData<Boolean> cleanArchiveSuccess = new MutableLiveData<>(null);
+    public LiveData<Boolean> getCleanArchiveSuccess() {
+        return cleanArchiveSuccess;
+    }
+
+    public void setCleanArchiveSuccessValueToDefault() {
+        cleanArchiveSuccess.postValue(null);
+    }
+
     public GoalsRepository(Application application) {
         taskRunner = new TaskRunner();
 
@@ -110,6 +119,10 @@ public class GoalsRepository {
 
     public void deleteGoal(long id) {
         taskRunner.executeAsync(new DeleteGoalTask(id), goalDeleteSuccess::postValue);
+    }
+
+    public void cleanArchive() {
+        taskRunner.executeAsync(new CleanArchiveTask(), cleanArchiveSuccess::postValue);
     }
 
     private class InsertGoalTask implements Callable<Boolean> {
@@ -186,6 +199,20 @@ public class GoalsRepository {
                 return true;
             } catch (Exception exception) {
                 Log.e("DeletingError", exception.getMessage());
+                return false;
+            }
+        }
+    }
+
+    private class CleanArchiveTask implements Callable<Boolean> {
+
+        @Override
+        public Boolean call() {
+            try {
+                goalsDao.cleanArchive();
+                return true;
+            } catch (Exception exception) {
+                Log.e("CleaningArchiveError", exception.getMessage());
                 return false;
             }
         }
