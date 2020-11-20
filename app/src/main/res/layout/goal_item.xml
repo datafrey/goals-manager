@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -16,6 +17,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
+        android:background="@drawable/goal_item_ripple_background"
         android:onClick="@{(view) -> eventListener.onItemViewClick(view)}">
 
         <LinearLayout
@@ -29,20 +31,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{goal.title}"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/categoryTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{goal.category}"
-                android:textSize="12sp"/>
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
 
             <TextView
                 android:id="@+id/deadlineDateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{goal.deadlineDate}"
+                android:text="@{`Deadline: ` + goal.deadlineDate}"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/categoryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Category: ` + goal.category}"
                 android:textSize="12sp"/>
 
             <TextView
@@ -56,16 +59,20 @@
 
         <ImageButton
             android:id="@+id/editGoalButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/ic_edit_button_icon_24"
+            app:tint="@android:color/black"
+            android:background="@drawable/round_corner_ripple_button_background"
             android:onClick="@{(view) -> eventListener.onEditButtonClick(view, goal)}"/>
 
         <ImageButton
             android:id="@+id/deleteGoalButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/ic_delete_button_icon_24"
+            app:tint="@android:color/black"
+            android:background="@drawable/round_corner_ripple_button_background"
             android:onClick="@{(view) -> eventListener.onDeleteButtonClick(view, goal)}"/>
 
     </LinearLayout>
