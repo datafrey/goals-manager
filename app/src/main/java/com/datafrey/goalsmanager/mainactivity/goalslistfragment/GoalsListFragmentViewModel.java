@@ -21,6 +21,14 @@ public class GoalsListFragmentViewModel extends AndroidViewModel {
         return goalsToDisplay;
     }
 
+    public LiveData<Boolean> getGoalDeletionResult() {
+        return goalsRepository.getGoalDeleteSuccess();
+    }
+
+    public void uiReactedToGoalDeletionResult() {
+        goalsRepository.setGoalDeleteSuccessValueToDefault();
+    }
+
     private GoalsListRecyclerViewAdapter goalsListRecyclerViewAdapter;
 
     public GoalsListRecyclerViewAdapter getGoalsListRecyclerViewAdapter() {
@@ -65,5 +73,9 @@ public class GoalsListFragmentViewModel extends AndroidViewModel {
                 goalsToDisplay = goalsRepository.getArchiveGoals();
                 break;
         }
+    }
+
+    public void deleteGoal(Goal goal) {
+        goalsRepository.deleteGoal(goal.getId());
     }
 }

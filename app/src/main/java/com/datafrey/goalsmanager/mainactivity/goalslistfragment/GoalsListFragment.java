@@ -1,12 +1,14 @@
 package com.datafrey.goalsmanager.mainactivity.goalslistfragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -65,6 +67,18 @@ public class GoalsListFragment extends Fragment {
 
         viewModel.getGoalsToDisplay().observe(getViewLifecycleOwner(), this::updateRecyclerView);
 
+        viewModel.getGoalDeletionResult().observe(getViewLifecycleOwner(), success -> {
+            if (success != null) {
+                Toast.makeText(
+                        activity,
+                        success ? "Goal successfully deleted!" : "Something went wrong...",
+                        Toast.LENGTH_SHORT
+                ).show();
+
+                viewModel.uiReactedToGoalDeletionResult();
+            }
+        });
+
         goalsListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if (addBottomOffsetDecoration) {
@@ -100,22 +114,21 @@ public class GoalsListFragment extends Fragment {
 
             @Override
             public void onEditButtonClick(View view, Goal goal) {
-                ImageButton editGoalButton = (ImageButton) view;
-                ImageButton deleteGoalButton = view.getRootView().findViewById(R.id.deleteGoalButton);
-
-                editGoalButton.setEnabled(false);
-                deleteGoalButton.setEnabled(false);
-
                 Intent editIntent = new Intent(activity, EditGoalActivity.class);
                 editIntent.putExtra("goalId", goal.getId());
                 activity.startActivity(editIntent);
-
-                editGoalButton.setEnabled(true);
-                deleteGoalButton.setEnabled(true);
             }
 
             @Override
             public void onDeleteButtonClick(View view, Goal goal) {
+                new AlertDialog.Builder(activity)
+                        .setMessage("Are you sure you want to delete this goal?")
+                        .setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+                            viewModel.deleteGoal(goal);
+                            dialog.dismiss();
+                        })
+                        .setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> dialog.cancel())
+                        .show();
             }
         };
     }
