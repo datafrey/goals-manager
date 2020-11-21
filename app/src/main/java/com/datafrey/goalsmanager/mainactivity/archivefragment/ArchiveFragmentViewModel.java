@@ -12,6 +12,14 @@ public class ArchiveFragmentViewModel extends AndroidViewModel {
 
     private GoalsRepository goalsRepository;
 
+    public LiveData<Boolean> getArchiveIsEmptyCheckResult() {
+        return goalsRepository.getArchiveIsEmptyCheckResult();
+    }
+
+    public void uiReactedToArchiveIsEmptyCheckResult() {
+        goalsRepository.setArchiveIsEmptyCheckResultToDefaultValue();
+    }
+
     public LiveData<Boolean> getArchiveCleaningResult() {
         return goalsRepository.getCleanArchiveSuccess();
     }
@@ -20,17 +28,13 @@ public class ArchiveFragmentViewModel extends AndroidViewModel {
         goalsRepository.setCleanArchiveSuccessValueToDefault();
     }
 
-    public boolean archiveIsEmpty() {
-        if (goalsRepository.getArchiveGoals().getValue() == null) {
-            return true;
-        }
-
-        return goalsRepository.getArchiveGoals().getValue().isEmpty();
-    }
-
     public ArchiveFragmentViewModel(@NonNull Application application) {
         super(application);
         goalsRepository = new GoalsRepository(getApplication());
+    }
+
+    public void checkArchiveIsEmpty() {
+        goalsRepository.checkArchiveIsEmpty();
     }
 
     public void cleanArchive() {

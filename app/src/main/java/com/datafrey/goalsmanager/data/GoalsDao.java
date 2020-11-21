@@ -82,6 +82,9 @@ public interface GoalsDao {
             " ORDER BY date(deadline_date)")
     LiveData<List<Goal>> getArchiveGoals();
 
+    @Query("SELECT COUNT(*) = 0 FROM goals WHERE date(deadline_date) < date('now')")
+    boolean archiveIsEmpty();
+
     @Query("DELETE FROM goals WHERE date(deadline_date) < date('now')")
     void cleanArchive();
 }

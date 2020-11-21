@@ -1,5 +1,6 @@
 package com.datafrey.goalsmanager.data;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.util.Log;
 
@@ -89,6 +90,15 @@ public class GoalsRepository {
         goalDeleteSuccess.postValue(null);
     }
 
+    private final MutableLiveData<Boolean> archiveIsEmptyCheckResult = new MutableLiveData<>(null);
+    public LiveData<Boolean> getArchiveIsEmptyCheckResult() {
+        return archiveIsEmptyCheckResult;
+    }
+
+    public void setArchiveIsEmptyCheckResultToDefaultValue() {
+        archiveIsEmptyCheckResult.postValue(null);
+    }
+
     private final MutableLiveData<Boolean> cleanArchiveSuccess = new MutableLiveData<>(null);
     public LiveData<Boolean> getCleanArchiveSuccess() {
         return cleanArchiveSuccess;
@@ -119,6 +129,10 @@ public class GoalsRepository {
 
     public void deleteGoal(long id) {
         taskRunner.executeAsync(new DeleteGoalTask(id), goalDeleteSuccess::postValue);
+    }
+
+    public void checkArchiveIsEmpty() {
+        taskRunner.executeAsync(new CheckArchiveIsEmptyTask(), archiveIsEmptyCheckResult::postValue);
     }
 
     public void cleanArchive() {
@@ -199,6 +213,20 @@ public class GoalsRepository {
                 return true;
             } catch (Exception exception) {
                 Log.e("DeletingError", exception.getMessage());
+                return false;
+            }
+        }
+    }
+
+    private class CheckArchiveIsEmptyTask implements Callable<Boolean> {
+
+        @SuppressLint("LongLogTag")
+        @Override
+        public Boolean call() {
+            try {
+                return goalsDao.archiveIsEmpty();
+            } catch (Exception exception) {
+                Log.e("ArchiveIsEmptyCheckingError", exception.getMessage());
                 return false;
             }
         }

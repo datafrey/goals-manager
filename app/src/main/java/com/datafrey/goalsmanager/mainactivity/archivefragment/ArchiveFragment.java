@@ -39,35 +39,42 @@ public class ArchiveFragment extends Fragment {
                 new ArchiveFragmentViewModelFactory(getActivity().getApplication())
         ).get(ArchiveFragmentViewModel.class);
 
-        cleanArchiveButton.setOnClickListener(v -> onCleanArchiveButtonClick());
+        cleanArchiveButton.setOnClickListener(v -> viewModel.checkArchiveIsEmpty());
 
-        viewModel.getArchiveCleaningResult().observe(getViewLifecycleOwner(), success -> {
-            if (success != null) {
-                Toast.makeText(
-                        getActivity(),
-                        success ? "Archive successfully cleaned!" : "Something went wrong...",
-                        Toast.LENGTH_SHORT
-                ).show();
-
-                viewModel.uiReactedToArchiveCleaningResult();
-            }
-        });
+        viewModel.getArchiveIsEmptyCheckResult().observe(getViewLifecycleOwner(), this::reactToArchiveIsEmptyCheckResult);
+        viewModel.getArchiveCleaningResult().observe(getViewLifecycleOwner(), this::reactToArchiveCleaningResult);
 
         return view;
     }
 
-    private void onCleanArchiveButtonClick() {
-        if (!viewModel.archiveIsEmpty()) {
-            new AlertDialog.Builder(getActivity())
-                    .setMessage("Are you sure you want to clean your archive?")
-                    .setPositiveButton("Yes", (dialog, which) -> {
-                        viewModel.cleanArchive();
-                        dialog.dismiss();
-                    })
-                    .setNegativeButton("No", (dialog, which) -> dialog.cancel())
-                    .show();
-        } else {
-            Toast.makeText(getActivity(), "Archive is already empty!", Toast.LENGTH_SHORT).show();
+    private void reactToArchiveIsEmptyCheckResult(Boolean archiveIsEmpty) {
+        if (archiveIsEmpty != null) {
+            if (archiveIsEmpty) {
+                Toast.makeText(getActivity(), "Archive is already empty!", Toast.LENGTH_SHORT).show();
+            } else {
+                new AlertDialog.Builder(getActivity())
+                        .setMessage("Are you sure you want to clean your archive?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            viewModel.cleanArchive();
+                            dialog.dismiss();
+                        })
+                        .setNegativeButton("No", (dialog, which) -> dialog.cancel())
+                        .show();
+            }
+
+            viewModel.uiReactedToArchiveIsEmptyCheckResult();
+        }
+    }
+
+    private void reactToArchiveCleaningResult(Boolean success) {
+        if (success != null) {
+            Toast.makeText(
+                    getActivity(),
+                    success ? "Archive successfully cleaned!" : "Something went wrong...",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            viewModel.uiReactedToArchiveCleaningResult();
         }
     }
 }
