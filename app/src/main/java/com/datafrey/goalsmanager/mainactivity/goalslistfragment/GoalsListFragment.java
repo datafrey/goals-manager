@@ -2,12 +2,12 @@ package com.datafrey.goalsmanager.mainactivity.goalslistfragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,11 +33,12 @@ public class GoalsListFragment extends Fragment {
     private DeadlineType deadlineType;
 
     private RecyclerView goalsListRecyclerView;
+    private TextView placeholderTextView;
 
     private GoalsListFragmentViewModel viewModel;
 
     public GoalsListFragment() {
-        this.deadlineType = DeadlineType.TODAY;
+        this.deadlineType = null;
     }
 
     public GoalsListFragment(DeadlineType deadlineType) {
@@ -51,13 +52,32 @@ public class GoalsListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_goals_list_tab, container, false);
 
         goalsListRecyclerView = view.findViewById(R.id.goalsListRecyclerView);
+        placeholderTextView = view.findViewById(R.id.placeholderTextView);
 
         viewModel = new ViewModelProvider(
                 this,
                 new GoalsListFragmentViewModelFactory(getActivity().getApplication(), deadlineType)
         ).get(GoalsListFragmentViewModel.class);
 
+        if (deadlineType == null) {
+            deadlineType = viewModel.getDeadlineType();
+        }
+
+        switch (deadlineType) {
+            case TODAY:
+                placeholderTextView.setText("No goals for today.");
+                break;
+            case ARCHIVE:
+                placeholderTextView.setText("No goals in archive.");
+                break;
+            default:
+                placeholderTextView.setText("No goals here. Perhaps they migrated to the previous tab.");
+        }
+
         viewModel.getGoalsToDisplay().observe(getViewLifecycleOwner(), this::updateRecyclerView);
+
+        viewModel.getPlaceholderIsVisible().observe(getViewLifecycleOwner(),
+                isVisible -> placeholderTextView.setVisibility(isVisible ? View.VISIBLE : View.GONE));
 
         viewModel.getGoalDeletionResult().observe(getViewLifecycleOwner(), success -> {
             if (success != null) {
@@ -81,19 +101,24 @@ public class GoalsListFragment extends Fragment {
     }
 
     private void updateRecyclerView(List<Goal> goalsList) {
-        if (viewModel.getGoalsListRecyclerViewAdapter() == null) {
-            GoalsListRecyclerViewAdapter recyclerViewAdapter = new GoalsListRecyclerViewAdapter(goalsList);
-            recyclerViewAdapter.setItemViewEventListener(buildGoalItemViewEventListener());
-            viewModel.setGoalsListRecyclerViewAdapter(recyclerViewAdapter);
+        if (goalsList != null) {
+            if (viewModel.getGoalsListRecyclerViewAdapter() == null) {
+                GoalsListRecyclerViewAdapter recyclerViewAdapter = new GoalsListRecyclerViewAdapter(goalsList);
+                recyclerViewAdapter.setItemViewEventListener(buildGoalItemViewEventListener());
+                viewModel.setGoalsListRecyclerViewAdapter(recyclerViewAdapter);
+            } else {
+                viewModel.getGoalsListRecyclerViewAdapter().setGoalsList(goalsList);
+            }
+
+            if (goalsListRecyclerView.getAdapter() == null) {
+                goalsListRecyclerView.setAdapter(viewModel.getGoalsListRecyclerViewAdapter());
+            }
+
+            viewModel.getGoalsListRecyclerViewAdapter().notifyDataSetChanged();
+            viewModel.setPlaceholderIsVisible(goalsList.isEmpty());
         } else {
-            viewModel.getGoalsListRecyclerViewAdapter().setGoalsList(goalsList);
+            viewModel.setPlaceholderIsVisible(true);
         }
-
-        if (goalsListRecyclerView.getAdapter() == null) {
-            goalsListRecyclerView.setAdapter(viewModel.getGoalsListRecyclerViewAdapter());
-        }
-
-        viewModel.getGoalsListRecyclerViewAdapter().notifyDataSetChanged();
     }
 
     private GoalItemViewEventListener buildGoalItemViewEventListener() {
@@ -113,11 +138,11 @@ public class GoalsListFragment extends Fragment {
             public void onDeleteButtonClick(View view, Goal goal) {
                 new AlertDialog.Builder(activity)
                         .setMessage("Are you sure you want to delete this goal?")
-                        .setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        .setPositiveButton("Yes", (dialog, which) -> {
                             viewModel.deleteGoal(goal);
                             dialog.dismiss();
                         })
-                        .setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> dialog.cancel())
+                        .setNegativeButton("No", (dialog, which) -> dialog.cancel())
                         .show();
             }
         };

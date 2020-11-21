@@ -1,7 +1,6 @@
 package com.datafrey.goalsmanager.mainactivity.archivefragment;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,11 +60,11 @@ public class ArchiveFragment extends Fragment {
         if (!viewModel.archiveIsEmpty()) {
             new AlertDialog.Builder(getActivity())
                     .setMessage("Are you sure you want to clean your archive?")
-                    .setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    .setPositiveButton("Yes", (dialog, which) -> {
                         viewModel.cleanArchive();
                         dialog.dismiss();
                     })
-                    .setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> dialog.cancel())
+                    .setNegativeButton("No", (dialog, which) -> dialog.cancel())
                     .show();
         } else {
             Toast.makeText(getActivity(), "Archive is already empty!", Toast.LENGTH_SHORT).show();

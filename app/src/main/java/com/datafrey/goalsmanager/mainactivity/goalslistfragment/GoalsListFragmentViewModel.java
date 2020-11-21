@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.datafrey.goalsmanager.data.DeadlineType;
 import com.datafrey.goalsmanager.data.Goal;
@@ -15,6 +16,11 @@ import java.util.List;
 public class GoalsListFragmentViewModel extends AndroidViewModel {
 
     private GoalsRepository goalsRepository;
+    private DeadlineType deadlineType;
+
+    public DeadlineType getDeadlineType() {
+        return deadlineType;
+    }
 
     private LiveData<List<Goal>> goalsToDisplay;
     public LiveData<List<Goal>> getGoalsToDisplay() {
@@ -39,10 +45,20 @@ public class GoalsListFragmentViewModel extends AndroidViewModel {
         goalsListRecyclerViewAdapter = adapter;
     }
 
+    private final MutableLiveData<Boolean> placeholderIsVisible = new MutableLiveData<>(true);
+    public LiveData<Boolean> getPlaceholderIsVisible() {
+        return placeholderIsVisible;
+    }
+
+    public void setPlaceholderIsVisible(boolean isVisible) {
+        placeholderIsVisible.setValue(isVisible);
+    }
+
     public GoalsListFragmentViewModel(@NonNull Application application, DeadlineType deadlineType) {
         super(application);
 
         goalsRepository = new GoalsRepository(getApplication());
+        this.deadlineType = deadlineType;
 
         switch (deadlineType) {
             case TODAY:

@@ -6,6 +6,17 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/goalsListRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/placeholderTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:paddingHorizontal="20dp"
+        android:text="Placeholder"
+        android:textSize="20sp"
+        android:visibility="gone" />
 
 </RelativeLayout>
