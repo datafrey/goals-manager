@@ -48,24 +48,13 @@ public class NewGoalActivity extends AppCompatActivity {
 
         setupErrorMessages();
 
-        findViewById(R.id.cancelButton).setOnClickListener(v -> finish());
-        addGoalButton.setOnClickListener(v -> onAddGoalButtonClick());
+        findViewById(R.id.cancelButton).setOnClickListener(button -> finish());
+        addGoalButton.setOnClickListener(button -> onAddGoalButtonClick());
 
         viewModel.getAddGoalButtonEnabled().observe(this,
-                enabled -> addGoalButton.setEnabled(enabled));
+                isEnabled -> addGoalButton.setEnabled(isEnabled));
 
-        viewModel.getNewGoalAdditionResult().observe(this, success -> {
-            if (success != null) {
-                Toast.makeText(
-                        this,
-                        success ? "New goal successfully added!" : "Something went wrong...",
-                        Toast.LENGTH_SHORT
-                ).show();
-
-                viewModel.uiReactedToNewGoalAdditionResult();
-                finish();
-            }
-        });
+        viewModel.getNewGoalAdditionResult().observe(this, this::reactToNewGoalAdditionResult);
     }
 
     private void setupView() {
@@ -143,5 +132,18 @@ public class NewGoalActivity extends AppCompatActivity {
         );
 
         return calendar.getTime();
+    }
+
+    private void reactToNewGoalAdditionResult(Boolean success) {
+        if (success != null) {
+            Toast.makeText(
+                    this,
+                    success ? "New goal successfully added!" : "Something went wrong...",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            viewModel.uiReactedToNewGoalAdditionResult();
+            finish();
+        }
     }
 }

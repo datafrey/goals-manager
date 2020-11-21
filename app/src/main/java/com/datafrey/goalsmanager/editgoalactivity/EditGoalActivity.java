@@ -54,26 +54,15 @@ public class EditGoalActivity extends AppCompatActivity {
 
         setupErrorMessages();
 
-        findViewById(R.id.cancelButton).setOnClickListener(v -> finish());
-        editGoalButton.setOnClickListener(v -> onEditGoalButtonClick());
+        viewModel.getObtainedGoal().observe(this, this::fillFieldsWithGoalInfo);
+
+        findViewById(R.id.cancelButton).setOnClickListener(button -> finish());
+        editGoalButton.setOnClickListener(button -> onEditGoalButtonClick());
 
         viewModel.getEditGoalButtonEnabled().observe(this,
-                enabled -> editGoalButton.setEnabled(enabled));
+                isEnabled -> editGoalButton.setEnabled(isEnabled));
 
-        viewModel.getGoalEditionResult().observe(this, success -> {
-            if (success != null) {
-                Toast.makeText(
-                        this,
-                        success ? "Goal successfully edited!" : "Something went wrong...",
-                        Toast.LENGTH_SHORT
-                ).show();
-
-                viewModel.uiReactedToGoalEditionResult();
-                finish();
-            }
-        });
-
-        viewModel.getObtainedGoal().observe(this, this::fillFieldsWithGoalInfo);
+        viewModel.getGoalEditionResult().observe(this, this::reactToGoalEditionResult);
     }
 
     private void setupView() {
@@ -170,5 +159,18 @@ public class EditGoalActivity extends AppCompatActivity {
         );
 
         return calendar.getTime();
+    }
+
+    private void reactToGoalEditionResult(Boolean success) {
+        if (success != null) {
+            Toast.makeText(
+                    this,
+                    success ? "Goal successfully edited!" : "Something went wrong...",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            viewModel.uiReactedToGoalEditionResult();
+            finish();
+        }
     }
 }

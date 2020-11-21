@@ -81,13 +81,13 @@ public class GoalsRepository {
         obtainedGoal.postValue(null);
     }
 
-    private final MutableLiveData<Boolean> goalDeleteSuccess = new MutableLiveData<>(null);
-    public LiveData<Boolean> getGoalDeleteSuccess() {
-        return goalDeleteSuccess;
+    private final MutableLiveData<Boolean> goalDeletionSuccess = new MutableLiveData<>(null);
+    public LiveData<Boolean> getGoalDeletionSuccess() {
+        return goalDeletionSuccess;
     }
 
     public void setGoalDeleteSuccessValueToDefault() {
-        goalDeleteSuccess.postValue(null);
+        goalDeletionSuccess.postValue(null);
     }
 
     private final MutableLiveData<Boolean> archiveIsEmptyCheckResult = new MutableLiveData<>(null);
@@ -99,13 +99,13 @@ public class GoalsRepository {
         archiveIsEmptyCheckResult.postValue(null);
     }
 
-    private final MutableLiveData<Boolean> cleanArchiveSuccess = new MutableLiveData<>(null);
-    public LiveData<Boolean> getCleanArchiveSuccess() {
-        return cleanArchiveSuccess;
+    private final MutableLiveData<Boolean> archiveCleaningSuccess = new MutableLiveData<>(null);
+    public LiveData<Boolean> getArchiveCleaningSuccess() {
+        return archiveCleaningSuccess;
     }
 
-    public void setCleanArchiveSuccessValueToDefault() {
-        cleanArchiveSuccess.postValue(null);
+    public void setArchiveCleaningSuccessValueToDefault() {
+        archiveCleaningSuccess.postValue(null);
     }
 
     public GoalsRepository(Application application) {
@@ -128,7 +128,7 @@ public class GoalsRepository {
     }
 
     public void deleteGoal(long id) {
-        taskRunner.executeAsync(new DeleteGoalTask(id), goalDeleteSuccess::postValue);
+        taskRunner.executeAsync(new DeleteGoalTask(id), goalDeletionSuccess::postValue);
     }
 
     public void checkArchiveIsEmpty() {
@@ -136,7 +136,7 @@ public class GoalsRepository {
     }
 
     public void cleanArchive() {
-        taskRunner.executeAsync(new CleanArchiveTask(), cleanArchiveSuccess::postValue);
+        taskRunner.executeAsync(new CleanArchiveTask(), archiveCleaningSuccess::postValue);
     }
 
     private class InsertGoalTask implements Callable<Boolean> {

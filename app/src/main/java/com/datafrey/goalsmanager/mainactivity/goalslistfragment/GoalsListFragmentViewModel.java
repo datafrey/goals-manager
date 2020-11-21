@@ -28,7 +28,7 @@ public class GoalsListFragmentViewModel extends AndroidViewModel {
     }
 
     public LiveData<Boolean> getGoalDeletionResult() {
-        return goalsRepository.getGoalDeleteSuccess();
+        return goalsRepository.getGoalDeletionSuccess();
     }
 
     public void uiReactedToGoalDeletionResult() {
@@ -45,13 +45,13 @@ public class GoalsListFragmentViewModel extends AndroidViewModel {
         goalsListRecyclerViewAdapter = adapter;
     }
 
-    private final MutableLiveData<Boolean> placeholderIsVisible = new MutableLiveData<>(true);
-    public LiveData<Boolean> getPlaceholderIsVisible() {
-        return placeholderIsVisible;
+    private final MutableLiveData<Boolean> placeholderVisibility = new MutableLiveData<>(true);
+    public LiveData<Boolean> getPlaceholderVisibility() {
+        return placeholderVisibility;
     }
 
-    public void setPlaceholderIsVisible(boolean isVisible) {
-        placeholderIsVisible.setValue(isVisible);
+    public void setPlaceholderVisibility(boolean isVisible) {
+        placeholderVisibility.setValue(isVisible);
     }
 
     public GoalsListFragmentViewModel(@NonNull Application application, DeadlineType deadlineType) {

@@ -21,11 +21,11 @@ public class ArchiveFragmentViewModel extends AndroidViewModel {
     }
 
     public LiveData<Boolean> getArchiveCleaningResult() {
-        return goalsRepository.getCleanArchiveSuccess();
+        return goalsRepository.getArchiveCleaningSuccess();
     }
 
     public void uiReactedToArchiveCleaningResult() {
-        goalsRepository.setCleanArchiveSuccessValueToDefault();
+        goalsRepository.setArchiveCleaningSuccessValueToDefault();
     }
 
     public ArchiveFragmentViewModel(@NonNull Application application) {

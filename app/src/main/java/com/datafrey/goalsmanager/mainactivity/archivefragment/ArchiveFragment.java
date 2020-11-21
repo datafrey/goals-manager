@@ -39,7 +39,7 @@ public class ArchiveFragment extends Fragment {
                 new ArchiveFragmentViewModelFactory(getActivity().getApplication())
         ).get(ArchiveFragmentViewModel.class);
 
-        cleanArchiveButton.setOnClickListener(v -> viewModel.checkArchiveIsEmpty());
+        cleanArchiveButton.setOnClickListener(button -> viewModel.checkArchiveIsEmpty());
 
         viewModel.getArchiveIsEmptyCheckResult().observe(getViewLifecycleOwner(), this::reactToArchiveIsEmptyCheckResult);
         viewModel.getArchiveCleaningResult().observe(getViewLifecycleOwner(), this::reactToArchiveCleaningResult);

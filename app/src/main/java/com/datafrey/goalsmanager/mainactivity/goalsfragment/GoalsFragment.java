@@ -20,8 +20,6 @@ public class GoalsFragment extends Fragment {
     private TabLayout goalsDeadlineTabLayout;
     private ViewPager goalsDeadlineViewPager;
 
-    private DeadlinePageAdapter deadlinePageAdapter;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -33,13 +31,14 @@ public class GoalsFragment extends Fragment {
 
         setupViewPagerAndTabLayout();
 
-        view.findViewById(R.id.newGoalButton).setOnClickListener(v -> openNewGoalActivity());
+        view.findViewById(R.id.newGoalButton).setOnClickListener(button -> openNewGoalActivity());
 
         return view;
     }
 
     private void setupViewPagerAndTabLayout() {
-        deadlinePageAdapter = new DeadlinePageAdapter(getChildFragmentManager(), goalsDeadlineTabLayout.getTabCount());
+        DeadlinePageAdapter deadlinePageAdapter =
+                new DeadlinePageAdapter(getChildFragmentManager(), goalsDeadlineTabLayout.getTabCount());
         goalsDeadlineViewPager.setAdapter(deadlinePageAdapter);
 
         goalsDeadlineTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

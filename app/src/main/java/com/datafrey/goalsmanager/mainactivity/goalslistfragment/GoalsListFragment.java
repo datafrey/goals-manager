@@ -63,6 +63,21 @@ public class GoalsListFragment extends Fragment {
             deadlineType = viewModel.getDeadlineType();
         }
 
+        setupPlaceholder();
+
+        viewModel.getGoalsToDisplay().observe(getViewLifecycleOwner(), this::updateRecyclerView);
+        viewModel.getGoalDeletionResult().observe(getViewLifecycleOwner(), this::reactToGoalDeletionResult);
+
+        goalsListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        RecyclerViewBottomOffsetDecoration bottomOffsetDecoration =
+                new RecyclerViewBottomOffsetDecoration(200);
+        goalsListRecyclerView.addItemDecoration(bottomOffsetDecoration);
+
+        return view;
+    }
+
+    private void setupPlaceholder() {
         switch (deadlineType) {
             case TODAY:
                 placeholderTextView.setText("No goals for today.");
@@ -74,30 +89,8 @@ public class GoalsListFragment extends Fragment {
                 placeholderTextView.setText("No goals here. Perhaps they migrated to the previous tab.");
         }
 
-        viewModel.getGoalsToDisplay().observe(getViewLifecycleOwner(), this::updateRecyclerView);
-
-        viewModel.getPlaceholderIsVisible().observe(getViewLifecycleOwner(),
+        viewModel.getPlaceholderVisibility().observe(getViewLifecycleOwner(),
                 isVisible -> placeholderTextView.setVisibility(isVisible ? View.VISIBLE : View.GONE));
-
-        viewModel.getGoalDeletionResult().observe(getViewLifecycleOwner(), success -> {
-            if (success != null) {
-                Toast.makeText(
-                        activity,
-                        success ? "Goal successfully deleted!" : "Something went wrong...",
-                        Toast.LENGTH_SHORT
-                ).show();
-
-                viewModel.uiReactedToGoalDeletionResult();
-            }
-        });
-
-        goalsListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        RecyclerViewBottomOffsetDecoration bottomOffsetDecoration =
-                new RecyclerViewBottomOffsetDecoration(200);
-        goalsListRecyclerView.addItemDecoration(bottomOffsetDecoration);
-
-        return view;
     }
 
     private void updateRecyclerView(List<Goal> goalsList) {
@@ -115,9 +108,9 @@ public class GoalsListFragment extends Fragment {
             }
 
             viewModel.getGoalsListRecyclerViewAdapter().notifyDataSetChanged();
-            viewModel.setPlaceholderIsVisible(goalsList.isEmpty());
+            viewModel.setPlaceholderVisibility(goalsList.isEmpty());
         } else {
-            viewModel.setPlaceholderIsVisible(true);
+            viewModel.setPlaceholderVisibility(true);
         }
     }
 
@@ -146,6 +139,18 @@ public class GoalsListFragment extends Fragment {
                         .show();
             }
         };
+    }
+
+    private void reactToGoalDeletionResult(Boolean success) {
+        if (success != null) {
+            Toast.makeText(
+                    activity,
+                    success ? "Goal successfully deleted!" : "Something went wrong...",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            viewModel.uiReactedToGoalDeletionResult();
+        }
     }
 
     @SuppressWarnings("deprecation")
