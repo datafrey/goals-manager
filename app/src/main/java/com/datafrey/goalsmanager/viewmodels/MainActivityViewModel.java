@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.mainactivity;
+package com.datafrey.goalsmanager.viewmodels;
 
 import android.app.Application;
 

@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.mainactivity.goalsfragment;
+package com.datafrey.goalsmanager.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.datafrey.goalsmanager.R;
-import com.datafrey.goalsmanager.newgoalactivity.NewGoalActivity;
+import com.datafrey.goalsmanager.activities.NewGoalActivity;
+import com.datafrey.goalsmanager.adapters.DeadlinePageAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class GoalsFragment extends Fragment {

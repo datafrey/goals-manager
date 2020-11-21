@@ -1,10 +1,12 @@
-package com.datafrey.goalsmanager.newgoalactivity;
+package com.datafrey.goalsmanager.viewmodelfactories;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.datafrey.goalsmanager.viewmodels.NewGoalActivityViewModel;
 
 public class NewGoalActivityViewModelFactory implements ViewModelProvider.Factory {
 

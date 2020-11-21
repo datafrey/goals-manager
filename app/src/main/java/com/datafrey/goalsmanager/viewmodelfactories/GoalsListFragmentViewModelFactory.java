@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.mainactivity.goalslistfragment;
+package com.datafrey.goalsmanager.viewmodelfactories;
 
 import android.app.Application;
 
@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.datafrey.goalsmanager.data.DeadlineType;
+import com.datafrey.goalsmanager.viewmodels.GoalsListFragmentViewModel;
 
 public class GoalsListFragmentViewModelFactory implements ViewModelProvider.Factory {
 

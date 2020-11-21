@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.mainactivity.goalslistfragment;
+package com.datafrey.goalsmanager.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.datafrey.goalsmanager.R;
 import com.datafrey.goalsmanager.data.Goal;
 import com.datafrey.goalsmanager.databinding.GoalItemBinding;
+import com.datafrey.goalsmanager.vieweventlisteners.GoalItemViewEventListener;
 
 import java.util.List;
 

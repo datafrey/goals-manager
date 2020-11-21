@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.mainactivity.archivefragment;
+package com.datafrey.goalsmanager.fragments;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -14,7 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.datafrey.goalsmanager.R;
 import com.datafrey.goalsmanager.data.DeadlineType;
-import com.datafrey.goalsmanager.mainactivity.goalslistfragment.GoalsListFragment;
+import com.datafrey.goalsmanager.viewmodelfactories.ArchiveFragmentViewModelFactory;
+import com.datafrey.goalsmanager.viewmodels.ArchiveFragmentViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ArchiveFragment extends Fragment {

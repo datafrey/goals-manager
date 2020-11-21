@@ -1,5 +1,6 @@
-package com.datafrey.goalsmanager.newgoalactivity;
+package com.datafrey.goalsmanager.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,25 +14,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.datafrey.goalsmanager.R;
+import com.datafrey.goalsmanager.data.Goal;
+import com.datafrey.goalsmanager.viewmodelfactories.EditGoalActivityViewModelFactory;
+import com.datafrey.goalsmanager.viewmodels.EditGoalActivityViewModel;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
-public class NewGoalActivity extends AppCompatActivity {
+public class EditGoalActivity extends AppCompatActivity {
 
     private TextInputLayout titleTextInput, descriptionTextInput;
     private Spinner categoriesSpinner;
     private DatePicker deadlineDatePicker;
-    private ExtendedFloatingActionButton addGoalButton;
+    private ExtendedFloatingActionButton editGoalButton;
 
-    private NewGoalActivityViewModel viewModel;
+    private EditGoalActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_goal);
+        setContentView(R.layout.activity_edit_goal);
 
         setupView();
 
@@ -39,22 +44,27 @@ public class NewGoalActivity extends AppCompatActivity {
         descriptionTextInput = findViewById(R.id.descriptionTextInput);
         categoriesSpinner = findViewById(R.id.categoriesSpinner);
         deadlineDatePicker = findViewById(R.id.deadlineDatePicker);
-        addGoalButton = findViewById(R.id.addGoalButton);
+        editGoalButton = findViewById(R.id.editGoalButton);
+
+        Intent intent = getIntent();
+        long goalId = intent.getLongExtra("goalId", 0L);
 
         viewModel = new ViewModelProvider(
                 this,
-                new NewGoalActivityViewModelFactory(getApplication())
-        ).get(NewGoalActivityViewModel.class);
+                new EditGoalActivityViewModelFactory(getApplication(), goalId)
+        ).get(EditGoalActivityViewModel.class);
 
         setupErrorMessages();
 
+        viewModel.getObtainedGoal().observe(this, this::fillFieldsWithGoalInfo);
+
         findViewById(R.id.cancelButton).setOnClickListener(button -> finish());
-        addGoalButton.setOnClickListener(button -> onAddGoalButtonClick());
+        editGoalButton.setOnClickListener(button -> onEditGoalButtonClick());
 
-        viewModel.getAddGoalButtonEnabled().observe(this,
-                isEnabled -> addGoalButton.setEnabled(isEnabled));
+        viewModel.getEditGoalButtonEnabled().observe(this,
+                isEnabled -> editGoalButton.setEnabled(isEnabled));
 
-        viewModel.getNewGoalAdditionResult().observe(this, this::reactToNewGoalAdditionResult);
+        viewModel.getGoalEditionResult().observe(this, this::reactToGoalEditionResult);
     }
 
     private void setupView() {
@@ -112,15 +122,34 @@ public class NewGoalActivity extends AppCompatActivity {
         });
     }
 
-    private void onAddGoalButtonClick() {
-        viewModel.setAddGoalButtonEnabled(false);
+    private void fillFieldsWithGoalInfo(Goal goal) {
+        if (goal != null) {
+            titleTextInput.getEditText().setText(goal.getTitle());
+            descriptionTextInput.getEditText().setText(goal.getDescription());
+
+            categoriesSpinner.setSelection(
+                    Arrays.asList(getResources().getStringArray(R.array.goal_categories))
+                            .indexOf(goal.getCategory())
+            );
+
+            String[] dateComponents = goal.getDeadlineDate().split("-");
+            deadlineDatePicker.updateDate(
+                    Integer.parseInt(dateComponents[0]),
+                    Integer.parseInt(dateComponents[1]) - 1,
+                    Integer.parseInt(dateComponents[2])
+            );
+        }
+    }
+
+    private void onEditGoalButtonClick() {
+        viewModel.setEditGoalButtonEnabled(false);
 
         String goalTitle = titleTextInput.getEditText().getText().toString().trim();
         String goalDescription = descriptionTextInput.getEditText().getText().toString().trim();
         String goalCategory = categoriesSpinner.getSelectedItem().toString();
         Date deadlineDate = getDeadlineDatePickerSelectedDate();
 
-        viewModel.addGoal(goalTitle, goalDescription, goalCategory, deadlineDate);
+        viewModel.editGoal(goalTitle, goalDescription, goalCategory, deadlineDate);
     }
 
     private Date getDeadlineDatePickerSelectedDate() {
@@ -134,15 +163,15 @@ public class NewGoalActivity extends AppCompatActivity {
         return calendar.getTime();
     }
 
-    private void reactToNewGoalAdditionResult(Boolean success) {
+    private void reactToGoalEditionResult(Boolean success) {
         if (success != null) {
             Toast.makeText(
                     this,
-                    success ? "New goal successfully added!" : "Something went wrong...",
+                    success ? "Goal successfully edited!" : "Something went wrong...",
                     Toast.LENGTH_SHORT
             ).show();
 
-            viewModel.uiReactedToNewGoalAdditionResult();
+            viewModel.uiReactedToGoalEditionResult();
             finish();
         }
     }

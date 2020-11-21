@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.mainactivity.goalslistfragment;
+package com.datafrey.goalsmanager.viewmodels;
 
 import android.app.Application;
 
@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.datafrey.goalsmanager.adapters.GoalsListRecyclerViewAdapter;
 import com.datafrey.goalsmanager.data.DeadlineType;
 import com.datafrey.goalsmanager.data.Goal;
 import com.datafrey.goalsmanager.data.GoalsRepository;

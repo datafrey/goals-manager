@@ -9,7 +9,7 @@
 
         <variable
             name="eventListener"
-            type="com.datafrey.goalsmanager.mainactivity.goalslistfragment.GoalItemViewEventListener" />
+            type="com.datafrey.goalsmanager.vieweventlisteners.GoalItemViewEventListener" />
     </data>
 
     <LinearLayout

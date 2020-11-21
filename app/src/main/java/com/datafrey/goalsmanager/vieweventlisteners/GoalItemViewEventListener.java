@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.mainactivity.goalslistfragment;
+package com.datafrey.goalsmanager.vieweventlisteners;
 
 import android.view.View;
 

@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.mainactivity.goalsfragment;
+package com.datafrey.goalsmanager.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.datafrey.goalsmanager.data.DeadlineType;
-import com.datafrey.goalsmanager.mainactivity.goalslistfragment.GoalsListFragment;
+import com.datafrey.goalsmanager.fragments.GoalsListFragment;
 
 public class DeadlinePageAdapter extends FragmentPagerAdapter {
 

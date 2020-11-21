@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.mainactivity.goalslistfragment;
+package com.datafrey.goalsmanager.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,11 +18,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.datafrey.goalsmanager.R;
+import com.datafrey.goalsmanager.activities.EditGoalActivity;
+import com.datafrey.goalsmanager.activities.MainActivity;
+import com.datafrey.goalsmanager.adapters.GoalsListRecyclerViewAdapter;
 import com.datafrey.goalsmanager.data.DeadlineType;
 import com.datafrey.goalsmanager.data.Goal;
-import com.datafrey.goalsmanager.editgoalactivity.EditGoalActivity;
-import com.datafrey.goalsmanager.mainactivity.MainActivity;
 import com.datafrey.goalsmanager.util.RecyclerViewBottomOffsetDecoration;
+import com.datafrey.goalsmanager.vieweventlisteners.GoalItemViewEventListener;
+import com.datafrey.goalsmanager.viewmodelfactories.GoalsListFragmentViewModelFactory;
+import com.datafrey.goalsmanager.viewmodels.GoalsListFragmentViewModel;
 
 import java.util.List;
 

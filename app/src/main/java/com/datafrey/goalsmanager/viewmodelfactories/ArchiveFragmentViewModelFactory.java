@@ -1,10 +1,12 @@
-package com.datafrey.goalsmanager.mainactivity.archivefragment;
+package com.datafrey.goalsmanager.viewmodelfactories;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.datafrey.goalsmanager.viewmodels.ArchiveFragmentViewModel;
 
 public class ArchiveFragmentViewModelFactory implements ViewModelProvider.Factory {
 
