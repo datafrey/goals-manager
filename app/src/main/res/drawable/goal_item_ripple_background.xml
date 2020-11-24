@@ -7,5 +7,6 @@
             <solid android:color="#000000" />
         </shape>
     </item>
+    <item android:drawable="@drawable/goal_item_background" />
 
 </ripple>

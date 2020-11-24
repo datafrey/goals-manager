@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="goal"
             type="com.datafrey.goalsmanager.data.Goal" />
@@ -12,68 +13,92 @@
             type="com.datafrey.goalsmanager.vieweventlisteners.GoalItemViewEventListener" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/goalItemMotionLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="@drawable/goal_item_ripple_background"
-        android:onClick="@{(view) -> eventListener.onItemViewClick(view)}">
+        android:onClick="@{(view) -> eventListener.onItemViewClick(view)}"
+        app:layoutDescription="@xml/goal_item_xml_constraintlayout_scene">
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:paddingHorizontal="8dp"
+            android:paddingBottom="8dp"
+            android:text="@{goal.description}"
+            android:textColor="#343434"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/mainGoalItemLayout"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/titleTextView"
-                android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainGoalItemLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/goal_item_ripple_background"
+            android:padding="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/shortGoalInfoLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{goal.title}"
-                android:textSize="20sp"
-                android:textColor="@android:color/black"/>
+                android:orientation="vertical"
+                app:layout_constraintRight_toLeftOf="@+id/editGoalButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/deadlineDateTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{`Deadline: ` + goal.deadlineDate}"
-                android:textSize="12sp"/>
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{goal.title}"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/categoryTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{`Category: ` + goal.category}"
-                android:textSize="12sp"/>
+                <TextView
+                    android:id="@+id/deadlineDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{`Deadline: ` + goal.deadlineDate}"
+                    android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/descriptionTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{goal.description}"
-                android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/categoryTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{`Category: ` + goal.category}"
+                    android:textSize="12sp" />
 
-        </LinearLayout>
+            </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/editGoalButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_edit_button_icon_24"
-            app:tint="@android:color/black"
-            android:background="@drawable/round_corner_ripple_button_background"
-            android:onClick="@{(view) -> eventListener.onEditButtonClick(view, goal)}"/>
+            <ImageButton
+                android:id="@+id/editGoalButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/round_corner_ripple_button_background"
+                android:onClick="@{(view) -> eventListener.onEditButtonClick(view, goal)}"
+                android:src="@drawable/ic_edit_button_icon_24"
+                app:layout_constraintRight_toLeftOf="@+id/deleteGoalButton"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tint="@android:color/black" />
 
-        <ImageButton
-            android:id="@+id/deleteGoalButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_delete_button_icon_24"
-            app:tint="@android:color/black"
-            android:background="@drawable/round_corner_ripple_button_background"
-            android:onClick="@{(view) -> eventListener.onDeleteButtonClick(view, goal)}"/>
+            <ImageButton
+                android:id="@+id/deleteGoalButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/round_corner_ripple_button_background"
+                android:onClick="@{(view) -> eventListener.onDeleteButtonClick(view, goal)}"
+                android:src="@drawable/ic_delete_button_icon_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tint="@android:color/black" />
 
-    </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
