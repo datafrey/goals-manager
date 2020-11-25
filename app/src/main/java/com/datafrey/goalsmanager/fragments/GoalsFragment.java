@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.datafrey.goalsmanager.R;
-import com.datafrey.goalsmanager.activities.NewGoalActivity;
+import com.datafrey.goalsmanager.activities.AddGoalActivity;
 import com.datafrey.goalsmanager.adapters.DeadlinePageAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -32,7 +32,7 @@ public class GoalsFragment extends Fragment {
 
         setupViewPagerAndTabLayout();
 
-        view.findViewById(R.id.newGoalButton).setOnClickListener(button -> openNewGoalActivity());
+        view.findViewById(R.id.addGoalButton).setOnClickListener(button -> openAddGoalActivity());
 
         return view;
     }
@@ -73,7 +73,7 @@ public class GoalsFragment extends Fragment {
         });
     }
 
-    private void openNewGoalActivity() {
-        requireActivity().startActivity(new Intent(requireContext(), NewGoalActivity.class));
+    private void openAddGoalActivity() {
+        requireActivity().startActivity(new Intent(requireContext(), AddGoalActivity.class));
     }
 }

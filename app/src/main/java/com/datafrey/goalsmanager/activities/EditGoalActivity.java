@@ -47,7 +47,7 @@ public class EditGoalActivity extends AppCompatActivity {
         editGoalButton = findViewById(R.id.editGoalButton);
 
         Intent intent = getIntent();
-        long goalId = intent.getLongExtra("goalId", 0L);
+        long goalId = intent.getLongExtra("goalId", Long.MAX_VALUE);
 
         viewModel = new ViewModelProvider(
                 this,
@@ -95,7 +95,7 @@ public class EditGoalActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.removeTitleInputErrorMessage();
+                viewModel.hideTitleInputErrorMessage();
             }
 
             @Override
@@ -113,7 +113,7 @@ public class EditGoalActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.removeDescriptionInputErrorMessage();
+                viewModel.hideDescriptionInputErrorMessage();
             }
 
             @Override
@@ -172,7 +172,8 @@ public class EditGoalActivity extends AppCompatActivity {
             ).show();
 
             viewModel.uiReactedToGoalEditionResult();
-            finish();
+
+            if (success) finish();
         }
     }
 }

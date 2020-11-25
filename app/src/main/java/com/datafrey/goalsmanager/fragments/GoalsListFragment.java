@@ -53,7 +53,7 @@ public class GoalsListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_goals_list_tab, container, false);
+        View view = inflater.inflate(R.layout.fragment_goals_list, container, false);
 
         goalsListRecyclerView = view.findViewById(R.id.goalsListRecyclerView);
         placeholderTextView = view.findViewById(R.id.placeholderTextView);

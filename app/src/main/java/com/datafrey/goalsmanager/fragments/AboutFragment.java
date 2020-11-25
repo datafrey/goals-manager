@@ -1,5 +1,7 @@
 package com.datafrey.goalsmanager.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,12 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_about, container, false);
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
+        view.findViewById(R.id.openDevelopersGithubPageLayout).setOnClickListener(layout -> openDevelopersGithubPage());
+        return view;
+    }
+
+    private void openDevelopersGithubPage() {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.github.com/datafrey")));
     }
 }

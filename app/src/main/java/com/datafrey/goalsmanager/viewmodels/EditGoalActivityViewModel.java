@@ -42,7 +42,7 @@ public class EditGoalActivityViewModel extends AndroidViewModel {
         return titleInputErrorMessage;
     }
 
-    public void removeTitleInputErrorMessage() {
+    public void hideTitleInputErrorMessage() {
         titleInputErrorMessage.setValue("");
     }
 
@@ -51,7 +51,7 @@ public class EditGoalActivityViewModel extends AndroidViewModel {
         return descriptionInputErrorMessage;
     }
 
-    public void removeDescriptionInputErrorMessage() {
+    public void hideDescriptionInputErrorMessage() {
         descriptionInputErrorMessage.setValue("");
     }
 

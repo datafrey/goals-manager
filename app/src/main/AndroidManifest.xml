@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GoalsManager">
         <activity
-            android:name=".activities.NewGoalActivity"
+            android:name=".activities.AddGoalActivity"
             android:theme="@style/Theme.GoalsManager.LightStatusBar"
             android:launchMode="singleTop" />
         <activity

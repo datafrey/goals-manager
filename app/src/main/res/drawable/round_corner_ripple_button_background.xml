@@ -8,6 +8,6 @@
             <corners android:radius="25dp" />
         </shape>
     </item>
-    <item android:drawable="@drawable/round_corner_background" />
+    <item android:drawable="@drawable/round_corner_button_background" />
 
 </ripple>

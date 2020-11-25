@@ -21,7 +21,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Calendar;
 import java.util.Date;
 
-public class NewGoalActivity extends AppCompatActivity {
+public class AddGoalActivity extends AppCompatActivity {
 
     private TextInputLayout titleTextInput, descriptionTextInput;
     private Spinner categoriesSpinner;
@@ -33,7 +33,7 @@ public class NewGoalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_goal);
+        setContentView(R.layout.activity_add_goal);
 
         setupView();
 
@@ -87,7 +87,7 @@ public class NewGoalActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.removeTitleInputErrorMessage();
+                viewModel.hideTitleInputErrorMessage();
             }
 
             @Override
@@ -105,7 +105,7 @@ public class NewGoalActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.removeDescriptionInputErrorMessage();
+                viewModel.hideDescriptionInputErrorMessage();
             }
 
             @Override
@@ -145,7 +145,8 @@ public class NewGoalActivity extends AppCompatActivity {
             ).show();
 
             viewModel.uiReactedToNewGoalAdditionResult();
-            finish();
+
+            if (success) finish();
         }
     }
 }
