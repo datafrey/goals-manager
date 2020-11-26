@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.datafrey.goalsmanager.R;
-import com.datafrey.goalsmanager.data.DeadlineType;
+import com.datafrey.goalsmanager.fragments.listofgoals.ArchiveListOfGoalsFragment;
 import com.datafrey.goalsmanager.viewmodelfactories.ArchiveFragmentViewModelFactory;
 import com.datafrey.goalsmanager.viewmodels.ArchiveFragmentViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,13 +30,13 @@ public class ArchiveFragment extends Fragment {
 
         getActivity().getSupportFragmentManager().beginTransaction().add(
                 R.id.fragmentContainerForArchiveGoalsList,
-                new GoalsListFragment(DeadlineType.ARCHIVE)
+                new ArchiveListOfGoalsFragment()
         ).commit();
 
         FloatingActionButton cleanArchiveButton = view.findViewById(R.id.cleanArchiveButton);
 
         viewModel = new ViewModelProvider(
-                this,
+                getActivity(),
                 new ArchiveFragmentViewModelFactory(getActivity().getApplication())
         ).get(ArchiveFragmentViewModel.class);
 

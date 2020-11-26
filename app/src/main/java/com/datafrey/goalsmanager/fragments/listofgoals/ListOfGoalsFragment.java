@@ -1,4 +1,4 @@
-package com.datafrey.goalsmanager.fragments;
+package com.datafrey.goalsmanager.fragments.listofgoals;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,33 +20,27 @@ import com.datafrey.goalsmanager.R;
 import com.datafrey.goalsmanager.activities.EditGoalActivity;
 import com.datafrey.goalsmanager.activities.MainActivity;
 import com.datafrey.goalsmanager.adapters.GoalsListRecyclerViewAdapter;
-import com.datafrey.goalsmanager.data.DeadlineType;
 import com.datafrey.goalsmanager.data.Goal;
 import com.datafrey.goalsmanager.util.RecyclerViewBottomOffsetDecoration;
 import com.datafrey.goalsmanager.vieweventlisteners.GoalItemViewEventListener;
-import com.datafrey.goalsmanager.viewmodelfactories.GoalsListFragmentViewModelFactory;
-import com.datafrey.goalsmanager.viewmodels.GoalsListFragmentViewModel;
+import com.datafrey.goalsmanager.viewmodels.listofgoals.ListOfGoalsFragmentViewModel;
 
 import java.util.List;
 
-public class GoalsListFragment extends Fragment {
+public abstract class ListOfGoalsFragment extends Fragment {
 
-    private MainActivity activity;
+    protected MainActivity activity;
 
-    private DeadlineType deadlineType;
+    protected RecyclerView goalsListRecyclerView;
+    protected TextView placeholderTextView;
 
-    private RecyclerView goalsListRecyclerView;
-    private TextView placeholderTextView;
+    protected PlaceholderType placeholderType;
 
-    private GoalsListFragmentViewModel viewModel;
+    protected abstract PlaceholderType setPlaceholderType();
 
-    public GoalsListFragment() {
-        this.deadlineType = null;
-    }
+    protected ListOfGoalsFragmentViewModel viewModel;
 
-    public GoalsListFragment(DeadlineType deadlineType) {
-        this.deadlineType = deadlineType;
-    }
+    protected abstract ListOfGoalsFragmentViewModel setViewModel();
 
     @Nullable
     @Override
@@ -58,14 +51,8 @@ public class GoalsListFragment extends Fragment {
         goalsListRecyclerView = view.findViewById(R.id.goalsListRecyclerView);
         placeholderTextView = view.findViewById(R.id.placeholderTextView);
 
-        viewModel = new ViewModelProvider(
-                this,
-                new GoalsListFragmentViewModelFactory(getActivity().getApplication(), deadlineType)
-        ).get(GoalsListFragmentViewModel.class);
-
-        if (deadlineType == null) {
-            deadlineType = viewModel.getDeadlineType();
-        }
+        placeholderType = setPlaceholderType();
+        viewModel = setViewModel();
 
         setupPlaceholder();
 
@@ -82,7 +69,7 @@ public class GoalsListFragment extends Fragment {
     }
 
     private void setupPlaceholder() {
-        switch (deadlineType) {
+        switch (placeholderType) {
             case TODAY:
                 placeholderTextView.setText("No goals for today.");
                 break;

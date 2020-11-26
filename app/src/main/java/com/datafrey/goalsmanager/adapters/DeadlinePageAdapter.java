@@ -5,8 +5,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.datafrey.goalsmanager.data.DeadlineType;
-import com.datafrey.goalsmanager.fragments.GoalsListFragment;
+import com.datafrey.goalsmanager.fragments.listofgoals.MonthListOfGoalsFragment;
+import com.datafrey.goalsmanager.fragments.listofgoals.MoreListOfGoalsFragment;
+import com.datafrey.goalsmanager.fragments.listofgoals.NextMonthListOfGoalsFragment;
+import com.datafrey.goalsmanager.fragments.listofgoals.NextWeekListOfGoalsFragment;
+import com.datafrey.goalsmanager.fragments.listofgoals.NextYearListOfGoalsFragment;
+import com.datafrey.goalsmanager.fragments.listofgoals.TodayListOfGoalsFragment;
+import com.datafrey.goalsmanager.fragments.listofgoals.WeekListOfGoalsFragment;
+import com.datafrey.goalsmanager.fragments.listofgoals.YearListOfGoalsFragment;
 
 public class DeadlinePageAdapter extends FragmentPagerAdapter {
 
@@ -22,21 +28,21 @@ public class DeadlinePageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new GoalsListFragment(DeadlineType.TODAY);
+                return new TodayListOfGoalsFragment();
             case 1:
-                return new GoalsListFragment(DeadlineType.WEEK);
+                return new WeekListOfGoalsFragment();
             case 2:
-                return new GoalsListFragment(DeadlineType.NEXT_WEEK);
+                return new NextWeekListOfGoalsFragment();
             case 3:
-                return new GoalsListFragment(DeadlineType.MONTH);
+                return new MonthListOfGoalsFragment();
             case 4:
-                return new GoalsListFragment(DeadlineType.NEXT_MONTH);
+                return new NextMonthListOfGoalsFragment();
             case 5:
-                return new GoalsListFragment(DeadlineType.YEAR);
+                return new YearListOfGoalsFragment();
             case 6:
-                return new GoalsListFragment(DeadlineType.NEXT_YEAR);
+                return new NextYearListOfGoalsFragment();
             case 7:
-                return new GoalsListFragment(DeadlineType.LONG_TERM);
+                return new MoreListOfGoalsFragment();
             default:
                 return null;
         }
