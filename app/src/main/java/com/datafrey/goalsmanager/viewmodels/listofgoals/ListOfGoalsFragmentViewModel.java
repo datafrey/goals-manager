@@ -17,7 +17,17 @@ public abstract class ListOfGoalsFragmentViewModel extends AndroidViewModel {
 
     protected GoalsRepository goalsRepository;
 
-    protected LiveData<List<Goal>> goalsToDisplay = new MutableLiveData<>(null);
+    protected boolean firstLoadOfGoalsList = true;
+
+    public boolean isFirstLoadOfGoalsList() {
+        return firstLoadOfGoalsList;
+    }
+
+    public void setFirstLoadOfGoalsList(boolean firstLoadOfGoalsList) {
+        this.firstLoadOfGoalsList = firstLoadOfGoalsList;
+    }
+
+    protected LiveData<List<Goal>> goalsToDisplay;
     public LiveData<List<Goal>> getGoalsToDisplay() {
         return goalsToDisplay;
     }
@@ -42,7 +52,16 @@ public abstract class ListOfGoalsFragmentViewModel extends AndroidViewModel {
         goalsListRecyclerViewAdapter = adapter;
     }
 
-    protected final MutableLiveData<Boolean> placeholderVisibility = new MutableLiveData<>(true);
+    protected final MutableLiveData<Boolean> progressBarVisibility = new MutableLiveData<>(true);
+    public LiveData<Boolean> getProgressBarVisibility() {
+        return progressBarVisibility;
+    }
+
+    public void setProgressBarVisibility(boolean isVisible) {
+        progressBarVisibility.setValue(isVisible);
+    }
+
+    protected final MutableLiveData<Boolean> placeholderVisibility = new MutableLiveData<>(false);
     public LiveData<Boolean> getPlaceholderVisibility() {
         return placeholderVisibility;
     }

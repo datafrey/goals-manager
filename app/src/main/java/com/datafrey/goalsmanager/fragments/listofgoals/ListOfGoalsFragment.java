@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public abstract class ListOfGoalsFragment extends Fragment {
     protected MainActivity activity;
 
     protected RecyclerView goalsListRecyclerView;
+    protected ProgressBar goalsListLoadingProgressBar;
     protected TextView placeholderTextView;
 
     protected PlaceholderType placeholderType;
@@ -49,12 +51,16 @@ public abstract class ListOfGoalsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_goals_list, container, false);
 
         goalsListRecyclerView = view.findViewById(R.id.goalsListRecyclerView);
+        goalsListLoadingProgressBar = view.findViewById(R.id.goalsListLoadingProgressBar);
         placeholderTextView = view.findViewById(R.id.placeholderTextView);
 
         placeholderType = setPlaceholderType();
         viewModel = setViewModel();
 
         setupPlaceholder();
+
+        viewModel.getProgressBarVisibility().observe(getViewLifecycleOwner(),
+                isVisible -> goalsListLoadingProgressBar.setVisibility(isVisible ? View.VISIBLE : View.GONE));
 
         viewModel.getGoalsToDisplay().observe(getViewLifecycleOwner(), this::updateRecyclerView);
         viewModel.getGoalDeletionResult().observe(getViewLifecycleOwner(), this::reactToGoalDeletionResult);
@@ -99,9 +105,16 @@ public abstract class ListOfGoalsFragment extends Fragment {
             }
 
             viewModel.getGoalsListRecyclerViewAdapter().notifyDataSetChanged();
+            viewModel.setProgressBarVisibility(false);
             viewModel.setPlaceholderVisibility(goalsList.isEmpty());
         } else {
-            viewModel.setPlaceholderVisibility(true);
+            if (viewModel.isFirstLoadOfGoalsList()) {
+                viewModel.setProgressBarVisibility(true);
+                viewModel.setFirstLoadOfGoalsList(false);
+            } else {
+                viewModel.setProgressBarVisibility(false);
+                viewModel.setPlaceholderVisibility(true);
+            }
         }
     }
 
