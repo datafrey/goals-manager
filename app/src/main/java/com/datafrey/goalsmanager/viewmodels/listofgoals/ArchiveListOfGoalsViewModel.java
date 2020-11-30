@@ -9,14 +9,14 @@ import com.datafrey.goalsmanager.data.Goal;
 
 import java.util.List;
 
-public class MonthListOfGoalsFragmentViewModel extends ListOfGoalsFragmentViewModel {
+public class ArchiveListOfGoalsViewModel extends ListOfGoalsViewModel {
 
-    public MonthListOfGoalsFragmentViewModel(@NonNull Application application) {
+    public ArchiveListOfGoalsViewModel(@NonNull Application application) {
         super(application);
     }
 
     @Override
     protected LiveData<List<Goal>> setGoalsToDisplay() {
-        return goalsRepository.getMonthGoals();
+        return goalsRepository.getArchiveGoals();
     }
 }

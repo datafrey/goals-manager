@@ -17,24 +17,16 @@ import com.datafrey.goalsmanager.util.userinputvalidation.InputValidatorMiddlewa
 
 import java.util.Date;
 
-public class EditGoalActivityViewModel extends AndroidViewModel {
+public class NewGoalViewModel extends AndroidViewModel {
 
     private GoalsRepository goalsRepository;
 
-    public LiveData<Goal> getObtainedGoal() {
-        return goalsRepository.getObtainedGoal();
+    public LiveData<Boolean> getNewGoalAdditionResult() {
+        return goalsRepository.getGoalInsertionSuccess();
     }
 
-    private void cleanObtainedGoalField() {
-        goalsRepository.setObtainedGoalValueToDefault();
-    }
-
-    public LiveData<Boolean> getGoalEditionResult() {
-        return goalsRepository.getGoalUpdateSuccess();
-    }
-
-    public void uiReactedToGoalEditionResult() {
-        goalsRepository.setGoalUpdateSuccessValueToDefault();
+    public void uiReactedToNewGoalAdditionResult() {
+        goalsRepository.setGoalInsertionSuccessValueToDefault();
     }
 
     private final MutableLiveData<String> titleInputErrorMessage = new MutableLiveData<>("");
@@ -55,34 +47,33 @@ public class EditGoalActivityViewModel extends AndroidViewModel {
         descriptionInputErrorMessage.setValue("");
     }
 
-    private final MutableLiveData<Boolean> editGoalButtonEnabled = new MutableLiveData<>(true);
-    public LiveData<Boolean> getEditGoalButtonEnabled() {
-        return editGoalButtonEnabled;
+    private final MutableLiveData<Boolean> addGoalButtonEnabled = new MutableLiveData<>(true);
+    public LiveData<Boolean> getAddGoalButtonEnabled() {
+        return addGoalButtonEnabled;
     }
 
-    public void setEditGoalButtonEnabled(boolean enabled) {
-        editGoalButtonEnabled.postValue(enabled);
+    public void setAddGoalButtonEnabled(boolean enabled) {
+        addGoalButtonEnabled.postValue(enabled);
     }
 
-    public EditGoalActivityViewModel(@NonNull Application application, long goalId) {
+    public NewGoalViewModel(@NonNull Application application) {
         super(application);
         goalsRepository = new GoalsRepository(getApplication());
-        goalsRepository.getGoal(goalId);
     }
 
-    public void editGoal(String title, String description,
-                         String category, Date deadlineDate) {
+    public void addGoal(String title, String description,
+                        String category, Date deadlineDate) {
         if (inputIsValid(title, description)) {
-            Goal goal = getObtainedGoal().getValue();
-            goal.setTitle(title);
-            goal.setDescription(description);
-            goal.setCategory(category);
-            goal.setDeadlineDate(DateConverter.fromDateToDatabaseString(deadlineDate));
+            Goal newGoal = new Goal();
+            newGoal.setTitle(title);
+            newGoal.setDescription(description);
+            newGoal.setCategory(category);
+            newGoal.setDeadlineDate(DateConverter.fromDateToDatabaseString(deadlineDate));
 
-            goalsRepository.updateGoal(goal);
+            goalsRepository.insertGoal(newGoal);
         }
 
-        editGoalButtonEnabled.postValue(true);
+        addGoalButtonEnabled.postValue(true);
     }
 
     private boolean inputIsValid(String title, String description) {
@@ -121,11 +112,5 @@ public class EditGoalActivityViewModel extends AndroidViewModel {
 
         return titleValidationResult == InputValidationResult.OK &&
                 descriptionValidationResult == InputValidationResult.OK;
-    }
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        cleanObtainedGoalField();
     }
 }

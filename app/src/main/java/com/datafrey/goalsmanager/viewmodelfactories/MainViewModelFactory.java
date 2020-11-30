@@ -6,13 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.datafrey.goalsmanager.viewmodels.NewGoalActivityViewModel;
+import com.datafrey.goalsmanager.viewmodels.MainViewModel;
 
-public class NewGoalActivityViewModelFactory implements ViewModelProvider.Factory {
+public class MainViewModelFactory implements ViewModelProvider.Factory {
 
     private Application application;
 
-    public NewGoalActivityViewModelFactory(Application application) {
+    public MainViewModelFactory(Application application) {
         this.application = application;
     }
 
@@ -20,8 +20,8 @@ public class NewGoalActivityViewModelFactory implements ViewModelProvider.Factor
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(NewGoalActivityViewModel.class)) {
-            return (T) new NewGoalActivityViewModel(application);
+        if (modelClass.isAssignableFrom(MainViewModel.class)) {
+            return (T) new MainViewModel(application);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

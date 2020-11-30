@@ -16,8 +16,8 @@ import com.datafrey.goalsmanager.R;
 import com.datafrey.goalsmanager.fragments.AboutFragment;
 import com.datafrey.goalsmanager.fragments.ArchiveFragment;
 import com.datafrey.goalsmanager.fragments.GoalsFragment;
-import com.datafrey.goalsmanager.viewmodelfactories.MainActivityViewModelFactory;
-import com.datafrey.goalsmanager.viewmodels.MainActivityViewModel;
+import com.datafrey.goalsmanager.viewmodelfactories.MainViewModelFactory;
+import com.datafrey.goalsmanager.viewmodels.MainViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private NavigationView navigationView;
 
-    private MainActivityViewModel viewModel;
+    private MainViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity
 
         viewModel = new ViewModelProvider(
                 this,
-                new MainActivityViewModelFactory(getApplication())
-        ).get(MainActivityViewModel.class);
+                new MainViewModelFactory(getApplication())
+        ).get(MainViewModel.class);
 
         setupActionBar();
         setupDrawer();

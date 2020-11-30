@@ -13,7 +13,7 @@ import com.datafrey.goalsmanager.data.GoalsRepository;
 
 import java.util.List;
 
-public abstract class ListOfGoalsFragmentViewModel extends AndroidViewModel {
+public abstract class ListOfGoalsViewModel extends AndroidViewModel {
 
     protected GoalsRepository goalsRepository;
 
@@ -70,7 +70,7 @@ public abstract class ListOfGoalsFragmentViewModel extends AndroidViewModel {
         placeholderVisibility.setValue(isVisible);
     }
 
-    public ListOfGoalsFragmentViewModel(@NonNull Application application) {
+    public ListOfGoalsViewModel(@NonNull Application application) {
         super(application);
 
         goalsRepository = new GoalsRepository(application);

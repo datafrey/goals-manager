@@ -2,9 +2,9 @@ package com.datafrey.goalsmanager.fragments.listofgoals;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import com.datafrey.goalsmanager.viewmodelfactories.ListOfGoalsFragmentViewModelFactory;
-import com.datafrey.goalsmanager.viewmodels.listofgoals.ListOfGoalsFragmentViewModel;
-import com.datafrey.goalsmanager.viewmodels.listofgoals.NextMonthListOfGoalsFragmentViewModel;
+import com.datafrey.goalsmanager.viewmodelfactories.ListOfGoalsViewModelFactory;
+import com.datafrey.goalsmanager.viewmodels.listofgoals.ListOfGoalsViewModel;
+import com.datafrey.goalsmanager.viewmodels.listofgoals.NextMonthListOfGoalsViewModel;
 
 public class NextMonthListOfGoalsFragment extends ListOfGoalsFragment {
 
@@ -14,10 +14,10 @@ public class NextMonthListOfGoalsFragment extends ListOfGoalsFragment {
     }
 
     @Override
-    protected ListOfGoalsFragmentViewModel setViewModel() {
+    protected ListOfGoalsViewModel setViewModel() {
         return new ViewModelProvider(
                 getActivity(),
-                new ListOfGoalsFragmentViewModelFactory(getActivity().getApplication())
-        ).get(NextMonthListOfGoalsFragmentViewModel.class);
+                new ListOfGoalsViewModelFactory(getActivity().getApplication())
+        ).get(NextMonthListOfGoalsViewModel.class);
     }
 }

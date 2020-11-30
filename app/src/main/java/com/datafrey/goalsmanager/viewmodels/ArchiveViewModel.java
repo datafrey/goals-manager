@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.datafrey.goalsmanager.data.GoalsRepository;
 
-public class ArchiveFragmentViewModel extends AndroidViewModel {
+public class ArchiveViewModel extends AndroidViewModel {
 
     private GoalsRepository goalsRepository;
 
@@ -28,7 +28,7 @@ public class ArchiveFragmentViewModel extends AndroidViewModel {
         goalsRepository.setArchiveCleaningSuccessValueToDefault();
     }
 
-    public ArchiveFragmentViewModel(@NonNull Application application) {
+    public ArchiveViewModel(@NonNull Application application) {
         super(application);
         goalsRepository = new GoalsRepository(getApplication());
     }

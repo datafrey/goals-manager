@@ -15,8 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.datafrey.goalsmanager.R;
 import com.datafrey.goalsmanager.data.Goal;
-import com.datafrey.goalsmanager.viewmodelfactories.EditGoalActivityViewModelFactory;
-import com.datafrey.goalsmanager.viewmodels.EditGoalActivityViewModel;
+import com.datafrey.goalsmanager.viewmodelfactories.EditGoalViewModelFactory;
+import com.datafrey.goalsmanager.viewmodels.EditGoalViewModel;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -31,7 +31,7 @@ public class EditGoalActivity extends AppCompatActivity {
     private DatePicker deadlineDatePicker;
     private ExtendedFloatingActionButton editGoalButton;
 
-    private EditGoalActivityViewModel viewModel;
+    private EditGoalViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +51,8 @@ public class EditGoalActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(
                 this,
-                new EditGoalActivityViewModelFactory(getApplication(), goalId)
-        ).get(EditGoalActivityViewModel.class);
+                new EditGoalViewModelFactory(getApplication(), goalId)
+        ).get(EditGoalViewModel.class);
 
         setupErrorMessages();
 

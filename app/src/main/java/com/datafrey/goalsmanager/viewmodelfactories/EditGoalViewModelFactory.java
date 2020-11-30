@@ -6,22 +6,24 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.datafrey.goalsmanager.viewmodels.ArchiveFragmentViewModel;
+import com.datafrey.goalsmanager.viewmodels.EditGoalViewModel;
 
-public class ArchiveFragmentViewModelFactory implements ViewModelProvider.Factory {
+public class EditGoalViewModelFactory implements ViewModelProvider.Factory {
 
     private Application application;
+    private long goalId;
 
-    public ArchiveFragmentViewModelFactory(Application application) {
+    public EditGoalViewModelFactory(Application application, long goalId) {
         this.application = application;
+        this.goalId = goalId;
     }
 
     @SuppressWarnings("unchecked")
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(ArchiveFragmentViewModel.class)) {
-            return (T) new ArchiveFragmentViewModel(application);
+        if (modelClass.isAssignableFrom(EditGoalViewModel.class)) {
+            return (T) new EditGoalViewModel(application, goalId);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

@@ -14,13 +14,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.datafrey.goalsmanager.R;
 import com.datafrey.goalsmanager.fragments.listofgoals.ArchiveListOfGoalsFragment;
-import com.datafrey.goalsmanager.viewmodelfactories.ArchiveFragmentViewModelFactory;
-import com.datafrey.goalsmanager.viewmodels.ArchiveFragmentViewModel;
+import com.datafrey.goalsmanager.viewmodelfactories.ArchiveViewModelFactory;
+import com.datafrey.goalsmanager.viewmodels.ArchiveViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ArchiveFragment extends Fragment {
 
-    private ArchiveFragmentViewModel viewModel;
+    private ArchiveViewModel viewModel;
 
     @Nullable
     @Override
@@ -37,8 +37,8 @@ public class ArchiveFragment extends Fragment {
 
         viewModel = new ViewModelProvider(
                 getActivity(),
-                new ArchiveFragmentViewModelFactory(getActivity().getApplication())
-        ).get(ArchiveFragmentViewModel.class);
+                new ArchiveViewModelFactory(getActivity().getApplication())
+        ).get(ArchiveViewModel.class);
 
         cleanArchiveButton.setOnClickListener(button -> viewModel.checkArchiveIsEmpty());
 

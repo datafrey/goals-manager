@@ -24,7 +24,7 @@ import com.datafrey.goalsmanager.adapters.GoalsListRecyclerViewAdapter;
 import com.datafrey.goalsmanager.data.Goal;
 import com.datafrey.goalsmanager.util.RecyclerViewBottomOffsetDecoration;
 import com.datafrey.goalsmanager.vieweventlisteners.GoalItemViewEventListener;
-import com.datafrey.goalsmanager.viewmodels.listofgoals.ListOfGoalsFragmentViewModel;
+import com.datafrey.goalsmanager.viewmodels.listofgoals.ListOfGoalsViewModel;
 
 import java.util.List;
 
@@ -40,9 +40,9 @@ public abstract class ListOfGoalsFragment extends Fragment {
 
     protected abstract PlaceholderType setPlaceholderType();
 
-    protected ListOfGoalsFragmentViewModel viewModel;
+    protected ListOfGoalsViewModel viewModel;
 
-    protected abstract ListOfGoalsFragmentViewModel setViewModel();
+    protected abstract ListOfGoalsViewModel setViewModel();
 
     @Nullable
     @Override

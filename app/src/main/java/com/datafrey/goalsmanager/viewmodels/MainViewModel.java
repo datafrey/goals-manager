@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-public class MainActivityViewModel extends AndroidViewModel {
+public class MainViewModel extends AndroidViewModel {
 
     private final MutableLiveData<String> actionBarTitle = new MutableLiveData("Goals");
     public LiveData<String> getActionBarTitle() {
@@ -19,7 +19,7 @@ public class MainActivityViewModel extends AndroidViewModel {
         return actionBarHasShadow;
     }
 
-    public MainActivityViewModel(@NonNull Application application) {
+    public MainViewModel(@NonNull Application application) {
         super(application);
     }
 
