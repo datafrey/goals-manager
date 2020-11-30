@@ -37,7 +37,7 @@ public class ListOfGoalsFragmentViewModelFactory implements ViewModelProvider.Fa
         } else if (modelClass.isAssignableFrom(MonthListOfGoalsFragmentViewModel.class)) {
             return (T) new MonthListOfGoalsFragmentViewModel(application);
         } else if (modelClass.isAssignableFrom(NextMonthListOfGoalsFragmentViewModel.class)) {
-            return (T) new NextWeekListOfGoalsFragmentViewModel(application);
+            return (T) new NextMonthListOfGoalsFragmentViewModel(application);
         } else if (modelClass.isAssignableFrom(YearListOfGoalsFragmentViewModel.class)) {
             return (T) new YearListOfGoalsFragmentViewModel(application);
         } else if (modelClass.isAssignableFrom(NextYearListOfGoalsFragmentViewModel.class)) {
