@@ -56,6 +56,8 @@ public interface GoalsDao {
 
     @Query("SELECT * FROM goals WHERE " +
             "date(deadline_date) BETWEEN date('now', 'start of month', '+1 month') AND date('now', 'start of month', '+2 month', '-1 day')" +
+            " AND " +
+            "NOT (date(deadline_date) BETWEEN date('now', '+1 day') AND date('now', 'weekday 6', '+8 days'))" +
             " ORDER BY date(deadline_date)")
     LiveData<List<Goal>> getNextMonthGoals();
 
@@ -70,6 +72,8 @@ public interface GoalsDao {
 
     @Query("SELECT * FROM goals WHERE " +
             "date(deadline_date) BETWEEN date('now', 'start of year', '+1 year') AND date('now', 'start of year', '+2 year', '-1 day')" +
+            " AND " +
+            "NOT (date(deadline_date) BETWEEN date('now', '+1 day') AND date('now', 'start of month', '+2 month', '-1 day'))" +
             " ORDER BY date(deadline_date)")
     LiveData<List<Goal>> getNextYearGoals();
 
